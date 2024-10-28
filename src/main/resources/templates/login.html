@@ -5,57 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spring Security Application</title>
     <!-- Bootstrap for styling -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">MyApp</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
-                <li class="nav-item">
-                    <a class="nav-link" th:if="${not #httpServletRequest.userPrincipal}" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:if="${#httpServletRequest.userPrincipal}" href="/logout">Logout</a>
-                </li>
-            </ul>
+    <div class="container right-panel-active">
+        <!-- Sign Up -->
+        <div class="container__form container--signup">
+            <form action="#" class="form" id="form1">
+                <h2 class="form__title">Sign Up</h2>
+                <input type="text" placeholder="User" class="input" />
+                <input type="email" placeholder="Email" class="input" />
+                <input type="password" placeholder="Password" class="input" />
+                <button class="btn">Sign Up</button>
+            </form>
         </div>
-    </nav>
-
-    <div class="container mt-5">
-        <h1>Welcome to My Spring Security Application</h1>
-        <p th:if="${not #httpServletRequest.userPrincipal}">You are not logged in. Please <a href="/login">login</a> to access restricted content.</p>
-
-        <p th:if="${#httpServletRequest.userPrincipal}">
-            Hello, <span th:text="${#httpServletRequest.userPrincipal.name}"></span>! You are logged in teste.
-        </p>
-
-        <!-- Admin Section -->
-        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-            <h3>Admin Section</h3>
-            <p>Only users with the ADMIN role can see this section.</p>
+    
+        <!-- Sign In -->
+        <div class="container__form container--signin">
+            <form action="#" class="form" id="form2">
+                <h2 class="form__title">Sign In</h2>
+                <input type="email" placeholder="Email" class="input" />
+                <input type="password" placeholder="Password" class="input" />
+                <a href="#" class="link">Forgot your password?</a>
+                <button class="btn">Sign In</button>
+            </form>
         </div>
-
-        <!-- User Section -->
-        <div th:if="${#authorization.expression('hasRole(''USER'')')}">
-            <h3>User Section</h3>
-            <p>Only users with the USER role can see this section.</p>
-        </div>
-
-        <!-- Common Section for All Authenticated Users -->
-        <div th:if="${#httpServletRequest.userPrincipal}">
-            <h3>General User Information</h3>
-            <p>All authenticated users can access this section.</p>
+    
+        <!-- Overlay -->
+        <div class="container__overlay">
+            <div class="overlay">
+                <div class="overlay__panel overlay--left">
+                    <button class="btn" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay__panel overlay--right">
+                    <button class="btn" id="signUp">Sign Up</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/login.js"></script>
 </body>
 </html>
