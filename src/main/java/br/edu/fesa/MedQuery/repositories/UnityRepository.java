@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UnityRepository extends JpaRepository<UnityModel, Integer> {
-    Optional<UnityModel> findByNome(String nome);
+    UnityModel findByName(String nome);
+    UnityModel findById(int id);
 }

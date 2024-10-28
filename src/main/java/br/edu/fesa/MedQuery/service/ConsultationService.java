@@ -17,7 +17,7 @@ public class ConsultationService {
         return consultationRepository.findAll();
     }   
 
-    public Optional<ConsultationModel> findById(int id) {
+    public ConsultationModel findById(int id) {
         return consultationRepository.findById(id);
     }
     

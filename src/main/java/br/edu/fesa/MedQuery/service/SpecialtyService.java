@@ -17,12 +17,12 @@ public class SpecialtyService {
         return specialtyRepository.findAll();
     }
 
-    public Optional<SpecialtyModel> findById(int id) {
+    public SpecialtyModel findById(int id) {
         return specialtyRepository.findById(id);
     }
 
-    public Optional<SpecialtyModel> findByNome(String description) {
-        return specialtyRepository.findByNome(description);
+    public SpecialtyModel findByDescription(String description) {
+        return specialtyRepository.findByDescription(description);
     }
     
     public SpecialtyModel save(SpecialtyModel padrao) {

@@ -36,7 +36,6 @@ public class UnityModel {
     @Column(name = "ENDEREÇO", nullable = false, unique = false)
     private String address;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "GESTOR", nullable = true, unique = false)
     private int userManagerId;
 

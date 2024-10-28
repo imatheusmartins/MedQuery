@@ -17,12 +17,12 @@ public class UnityService {
         return unityRepository.findAll();
     }
 
-    public Optional<UnityModel> findById(int id) {
+    public UnityModel findById(int id) {
         return unityRepository.findById(id);
     }
 
-    public Optional<UnityModel> findByNome(String nome) {
-        return unityRepository.findByNome(nome);
+    public UnityModel findByName(String nome) {
+        return unityRepository.findByName(nome);
     }
     
     public UnityModel save(UnityModel padrao) {

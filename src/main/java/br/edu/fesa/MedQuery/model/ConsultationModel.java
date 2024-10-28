@@ -27,10 +27,10 @@ public class ConsultationModel {
     private int patientId;
 
     @Column(name = "DOCTOR_ID", nullable = false, unique = false)
-    private int doctor_id;
+    private int doctorId;
 
     @Column(name = "UNITY_ID", nullable = false, unique = false)
-    private int unity_id;
+    private int unityId;
     
     @Column(name = "REPORT", nullable = false, unique = true, length = 250)
     private String report;
@@ -38,8 +38,8 @@ public class ConsultationModel {
     
     public ConsultationModel(int patientId, int doctor_id, int unity_id){
         this.patientId = patientId;
-        this.doctor_id = doctor_id;
-        this.unity_id = unity_id;
+        this.doctorId = doctor_id;
+        this.unityId = unity_id;
     }
 
     public int getId() {
@@ -51,11 +51,11 @@ public class ConsultationModel {
     }
 
     public int getDoctorId() {
-        return doctor_id;
+        return doctorId;
     }
 
     public int getUnityId() {
-        return unity_id;
+        return unityId;
     }
 
     public String getReport() {

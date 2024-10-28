@@ -5,5 +5,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SpecialtyRepository extends JpaRepository<SpecialtyModel, Integer> {
-    Optional<SpecialtyModel> findByNome(String description);
+    SpecialtyModel findById(int id);
+    SpecialtyModel findByDescription(String description);
 }
