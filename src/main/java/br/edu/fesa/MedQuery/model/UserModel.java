@@ -35,13 +35,19 @@ public class UserModel implements UserDetails {
 
     @Id
     @Basic(optional = false)
-    @Column(name = "ID_ID")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     @Column(name = "EMAIL", nullable = false, unique = true, length = 50)
     private String email;
+
     @Column(name = "SENHA", nullable = false, unique = false)
     private String password;
+
+    @Column(name = "NASC_DATA", nullable = true, unique = false)
+    private Date birthDate;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
@@ -53,7 +59,7 @@ public class UserModel implements UserDetails {
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.userRole == userRole.ADMIN)
+        if (this.userRole == UserRole.ADMIN)
                 return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_PATIENT"), new SimpleGrantedAuthority("ROLE_MANAGER"), new SimpleGrantedAuthority("ROLE_DOCTOR") );
         else if(this.userRole == userRole.MANAGER)
             return List.of(new SimpleGrantedAuthority("ROLE_MANAGER"));

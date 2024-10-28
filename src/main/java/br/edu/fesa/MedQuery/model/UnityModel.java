@@ -3,16 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package br.edu.fesa.MedQuery.model;
+import java.sql.Date;
 
-import br.edu.fesa.MedQuery.enums.UserRole;
-import java.util.Collection;
-import java.util.Date;
-import java.util.UUID;
-import java.util.List;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,18 +26,25 @@ public class UnityModel {
 
     @Id
     @Basic(optional = false)
-    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
-    @Column(name = "DESCRICAO", nullable = false, unique = true, length = 50)
-    private String description;
+
+    @Column(name = "NOME", nullable = false, unique = true, length = 50)
+    private String name;
+
     @Column(name = "ENDEREÇO", nullable = false, unique = false)
     private String address;
-    @Enumerated(EnumType.STRING)
+
+    @Column(name = "GESTOR", nullable = true, unique = false)
     private int userManagerId;
 
-    public UnityModel(String description, String address, int userManagerId) {
-        this.description = description;
+    // @Enumerated(EnumType.STRING)
+    // @Column(name = "DELETADO_DATA", nullable = true, unique = false)
+    // private Date deletedDate;
+
+    public UnityModel(String name, String address, int userManagerId) {
+        this.name = name;
         this.address = address;
         this.userManagerId = userManagerId;
     }
@@ -55,7 +54,7 @@ public class UnityModel {
     }
 
     public String getDescription() {
-        return this.description;
+        return this.name;
     }
 
     public String getAddress() {
