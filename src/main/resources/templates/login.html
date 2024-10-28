@@ -31,7 +31,7 @@
         <p th:if="${not #httpServletRequest.userPrincipal}">You are not logged in. Please <a href="/login">login</a> to access restricted content.</p>
 
         <p th:if="${#httpServletRequest.userPrincipal}">
-            Hello, <span th:text="${#httpServletRequest.userPrincipal.name}"></span>! You are logged in.
+            Hello, <span th:text="${#httpServletRequest.userPrincipal.name}"></span>! You are logged in teste.
         </p>
 
         <!-- Admin Section -->
