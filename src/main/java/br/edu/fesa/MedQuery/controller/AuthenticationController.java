@@ -11,12 +11,17 @@ import br.edu.fesa.MedQuery.model.UserModel;
 import br.edu.fesa.MedQuery.repositories.UserRepository;
 import br.edu.fesa.MedQuery.security.TokenService;
 import jakarta.validation.Valid;
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author hugok
  */
-@RestController
+@Controller
 @RequestMapping("/auth")
 public class AuthenticationController {
     @Autowired
@@ -35,6 +40,11 @@ public class AuthenticationController {
     private UserRepository repository;
     @Autowired
     private TokenService tokenService;
+
+     @GetMapping("/login")
+    public String getLoginPage(){
+        return "/login";
+    }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDto data){
@@ -55,6 +65,9 @@ public class AuthenticationController {
 
         this.repository.save(newUser);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(Map.of(
+            "message", "Registration successful",
+            "user", newUser
+        ));
     }
 }

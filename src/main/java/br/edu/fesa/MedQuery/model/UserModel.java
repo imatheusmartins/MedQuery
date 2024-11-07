@@ -35,7 +35,7 @@ public class UserModel implements UserDetails {
 
     @Id
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "ID_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
