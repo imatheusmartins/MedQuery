@@ -24,17 +24,25 @@ export function handleLogin() {
     const password = document.getElementById('password').value;
 
     apiPost('auth/login', { email, password })
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }else{
+                throw new Error('Login failed');  
+            }
+        })
         .then(data => {
             if (data.token) {
                 localStorage.setItem('token', data.token);
                 setRole(data.role); // Set the user role
-                window.location.href = '/dashboard'; // Redirect to dashboard
+                window.location.href = '/homePatient'; // Redirect to dashboard
             } else {
-                console.error('Login failed');
+                throw new Error('Invalid or expired token'); 
             }
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Error logging:', error); 
+            alert('Error logging: ' + error.message);
         });
 }
 
@@ -44,19 +52,28 @@ function handleRegister(event) {
     const password = document.getElementById('register-password').value;
     const role = "ADMIN";
     //const role = document.getElementById('register-role').value;
-
-    apiPost('auth/register', { email, password, userRole: role })
+    
+        apiPost('auth/register', { email, password, userRole: role })
         .then(response => {
-            if (response.ok) {
-                alert('Registration successful!');
-                window.location.href = 'auth/login'; // Redirect to login page after successful registration
-            } else {
-                alert('Registration failed. Email may already be in use.');
-            }
-        })
-        .catch(error => {
-            console.error('Error registering:', error);
-        });
+             if (response.ok) { 
+                alert('Registration successful!'); 
+                return response.json(); 
+            } else { 
+                throw new Error('Registration failed'); 
+            } 
+        }) 
+        .then(data => { 
+            if (data.message === "Registration successful") {
+                window.location.href = '/auth/login'; // Redirect to login page 
+            } else { 
+                throw new Error('Registration failed. Email may already be in use.'); 
+            } 
+            }) 
+            .catch(error => { 
+                console.error('Error registering:', error); 
+                alert('Error registering: ' + error.message); 
+            });
+    
 }
 
 window.handleRegister = handleRegister;

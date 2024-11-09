@@ -2,6 +2,7 @@ export function apiPost(url, data) {
     const token = localStorage.getItem('token');
     const baseUrl = 'http://localhost:8080/';
     const fullUrl = url.startsWith('http') ? url : `${baseUrl}${url}`;
+
     return fetch(fullUrl, {
         method: 'POST',
         headers: {
@@ -10,7 +11,6 @@ export function apiPost(url, data) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json());
 }
 
 export function apiGet(url) {
@@ -24,5 +24,4 @@ export function apiGet(url) {
             'Authorization': token ? `Bearer ${token}` : ''
         }
     })
-    .then(response => response.json());
 }
