@@ -13,6 +13,10 @@ signUpBtn.addEventListener("click", () => {
     container.classList.add("right-panel-active");
 });
 
+//fistForm.addEventListener("submit", (e) => e.preventDefault());
+//secondForm.addEventListener("submit", (e) => e.preventDefault());
+
+
 export function handleLogin() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -46,17 +50,11 @@ function handleRegister(event) {
     event.preventDefault();
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
-<<<<<<< HEAD
-    const role = "ADMIN";
-
-    apiPost('auth/register', { email, password, userRole: role })
-=======
     const role = document.getElementById('register-role').value;
     //const role = "ADMIN";
     //const role = document.getElementById('register-role').value;
     
         apiPost('auth/register', { email, password, userRole: role })
->>>>>>> 468ab7635a32a008af5d70ef45f4b9404e5dc48b
         .then(response => {
             if (response.ok) {
                 alert('Registration successful!');
