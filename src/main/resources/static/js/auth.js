@@ -46,9 +46,17 @@ function handleRegister(event) {
     event.preventDefault();
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
+<<<<<<< HEAD
     const role = "ADMIN";
 
     apiPost('auth/register', { email, password, userRole: role })
+=======
+    const role = document.getElementById('register-role').value;
+    //const role = "ADMIN";
+    //const role = document.getElementById('register-role').value;
+    
+        apiPost('auth/register', { email, password, userRole: role })
+>>>>>>> 468ab7635a32a008af5d70ef45f4b9404e5dc48b
         .then(response => {
             if (response.ok) {
                 alert('Registration successful!');
