@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    border-bottom: 2px solid #006b24;
+}
+
+.card-header {
+    background-color: #006b24;
+    color: #fff;
+}
+
+.card-body {
+    background-color: #f8f9fa;
+}
+
+.card-title {
+    font-size: 1.5rem;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555555;
+}
+
+footer {
+    background-color: #006b24;
+    color: #555;
+    border-top: 2px solid #ddd;
+}
