@@ -50,7 +50,8 @@ function handleRegister(event) {
     event.preventDefault();
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
-    const role = "ADMIN";
+    const role = document.getElementById('register-role').value;
+    //const role = "ADMIN";
     //const role = document.getElementById('register-role').value;
     
         apiPost('auth/register', { email, password, userRole: role })
