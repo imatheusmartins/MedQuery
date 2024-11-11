@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "TB_SPECIALTIES", schema = "MEDQUERY")
-public class SpecialtyModel {
+public class SpecialtyModel { 
     
     @Id
     @Basic(optional = false)

@@ -31,27 +31,29 @@ public class SecurityConfigurations {
     @Autowired
     SecurityFilter securityFilter;
 
-    @Bean public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception 
-    { return httpSecurity 
-    .csrf(csrf -> csrf.disable()) 
-    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) 
-    .authorizeHttpRequests(authorize -> authorize 
-    .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-    .requestMatchers(HttpMethod.GET, "/auth/login").permitAll() 
-    .requestMatchers(HttpMethod.POST, "/auth/register").permitAll() 
-    .anyRequest().permitAll()
-    //.requestMatchers(HttpMethod.POST, "/auth/register").hasAnyRole("ADMIN", "MANAGER", "PATIENT") .anyRequest().permitAll() 
-    ) 
-    .logout(logout -> logout 
-        .logoutUrl("/auth/logout") // Define the logout URL 
-        .logoutSuccessHandler((request, response, authentication) -> {
-            response.setStatus(HttpServletResponse.SC_OK); 
-         })
-         .invalidateHttpSession(true) // Invalidate session 
-         .deleteCookies("JSESSIONID") // Delete cookies 
-         )
-         .addFilterBefore((Filter) securityFilter, UsernamePasswordAuthenticationFilter.class) 
-         .build(); 
+    @Bean 
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception { 
+        return httpSecurity 
+            .csrf(csrf -> csrf.disable()) 
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) 
+            .authorizeHttpRequests(authorize -> authorize 
+                .requestMatchers(HttpMethod.POST, "/auth/index").permitAll()
+                .requestMatchers(HttpMethod.GET, "/auth/index").permitAll() 
+                .requestMatchers(HttpMethod.POST, "/auth/register").permitAll() 
+                .anyRequest().permitAll()
+                //.requestMatchers(HttpMethod.GET, "/home").authenticated() // Atualizado para requestMatchers
+                //.requestMatchers(HttpMethod.POST, "/auth/register").hasAnyRole("ADMIN", "MANAGER", "PATIENT") 
+            ) 
+            .logout(logout -> logout 
+                .logoutUrl("/auth/logout") // Define a URL de logout 
+                .logoutSuccessHandler((request, response, authentication) -> {
+                    response.setStatus(HttpServletResponse.SC_OK); 
+                })
+                .invalidateHttpSession(true) // Invalida a sessão 
+                .deleteCookies("JSESSIONID") // Exclui cookies 
+            )
+            .addFilterBefore((Filter) securityFilter, UsernamePasswordAuthenticationFilter.class) 
+            .build(); 
     }
 
     @Bean

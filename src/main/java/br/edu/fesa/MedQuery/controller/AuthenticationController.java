@@ -41,12 +41,12 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
-     @GetMapping("/login")
+     @GetMapping("/index")
     public String getLoginPage(){
-        return "/login";
+        return "/index";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/index")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDto data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
