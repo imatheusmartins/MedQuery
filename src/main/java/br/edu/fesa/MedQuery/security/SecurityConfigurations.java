@@ -1,68 +1,72 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.fesa.MedQuery.security;
 
-import jakarta.servlet.Filter;
-import jakarta.servlet.http.HttpServletResponse;
-
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.core.env.Environment;
+import br.edu.fesa.MedQuery.service.PacienteUserDetailsService;
 
-/**
- *
- * @author hugok
- */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfigurations {
-    @Autowired
-    SecurityFilter securityFilter;
+public class SecurityConfigurations{
 
-    @Bean 
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception { 
-        return httpSecurity 
-            .csrf(csrf -> csrf.disable()) 
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) 
-            .authorizeHttpRequests(authorize -> authorize 
-                .requestMatchers(HttpMethod.POST, "/auth/index").permitAll()
-                .requestMatchers(HttpMethod.GET, "/auth/index").permitAll() 
-                .requestMatchers(HttpMethod.POST, "/auth/register").permitAll() 
-                .anyRequest().permitAll()
-                //.requestMatchers(HttpMethod.GET, "/home").authenticated() // Atualizado para requestMatchers
-                //.requestMatchers(HttpMethod.POST, "/auth/register").hasAnyRole("ADMIN", "MANAGER", "PATIENT") 
-            ) 
-            .logout(logout -> logout 
-                .logoutUrl("/auth/logout") // Define a URL de logout 
-                .logoutSuccessHandler((request, response, authentication) -> {
-                    response.setStatus(HttpServletResponse.SC_OK); 
-                })
-                .invalidateHttpSession(true) // Invalida a sessão 
-                .deleteCookies("JSESSIONID") // Exclui cookies 
-            )
-            .addFilterBefore((Filter) securityFilter, UsernamePasswordAuthenticationFilter.class) 
-            .build(); 
+    @Autowired
+    private PacienteUserDetailsService pacienteUserDetailsService;
+
+    @Autowired
+    private Environment env;
+
+    @SuppressWarnings("removal")
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { //Devido a versão do spring boot do projeto, é necessário utilizar o SecurityFilterChain
+        if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
+            http.headers(headers -> headers.frameOptions().disable());
+        }
+
+        http.cors(cors -> cors.disable()) // Configurações de CORS
+        .csrf(csrf -> csrf.disable()) // Desativa CSRF
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/images/**", "/h2-console/**", "/css/**", "/js/**", "/fonts/**", "/vendors/**").permitAll()
+            .anyRequest().authenticated()
+        )
+        .formLogin(form -> form //após login, o usuário é automaticamente redirecionado
+            .loginPage("/login")
+            .defaultSuccessUrl("/")
+            .permitAll()
+        )
+        .logout(logout -> logout
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login")
+        )
+        .rememberMe(rememberMe -> rememberMe
+            .key("keyRemember-me")
+        );
+
+        return http.build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+
+        authenticationManagerBuilder
+        .userDetailsService(pacienteUserDetailsService)
+        .passwordEncoder(passwordEncoder());
+
+        return authenticationManagerBuilder.build();
     }
 
-    @Bean 
-    public PasswordEncoder passwordEncoder(){
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
