@@ -30,6 +30,14 @@ public abstract class User { //Classe geral para usuários
         this.perfil = perfil;
     }
 
+    public User(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+        this.nome = "Nome Padrão"; // Valor padrão
+        this.imagem = "default.png"; // Valor padrão
+        this.perfil = UserRole.PACIENTE; // Valor padrão, supondo que você tenha um enum com 'PADRAO'
+    }
+
 
     public Integer getId() {
         return id;

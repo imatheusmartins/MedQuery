@@ -14,17 +14,21 @@ public class Paciente extends User{
         super(id, nome, email, senha, imagem, perfil);
     }
 
+    public Paciente(String email, String senha) {
+        super(email, senha); // Chama o construtor da classe User
+    }
+
     public Paciente() {
     }
 
-    @OneToMany(mappedBy = "paciente")
-    private List<Agendamento> agendamentos = new ArrayList<>();
+    // @OneToMany(mappedBy = "paciente")
+    // private List<Agendamento> agendamentos = new ArrayList<>();
 
-    public List<Agendamento> getAgendamentos() {
-        return agendamentos;
-    }
+    // public List<Agendamento> getAgendamentos() {
+    //     return agendamentos;
+    // }
 
-    public void setChamados(List<Agendamento> agendamentos) {
-        this.agendamentos = agendamentos;
-    }
+    // public void setChamados(List<Agendamento> agendamentos) {
+    //     this.agendamentos = agendamentos;
+    // }
 }
