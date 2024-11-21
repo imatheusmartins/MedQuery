@@ -35,12 +35,12 @@ public class SecurityConfigurations{
         http.cors(cors -> cors.disable()) // Configurações de CORS
         .csrf(csrf -> csrf.disable()) // Desativa CSRF
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers( "/css/**", "/js/**", "/img/**").permitAll()
-            .anyRequest().permitAll()
+            .requestMatchers( "/css/**", "/js/**", "/img/**", "/login/**").permitAll()
+            .anyRequest().authenticated()
         )
         .formLogin(form -> form //após login, o usuário é automaticamente redirecionado
             .loginPage("/login")
-            .defaultSuccessUrl("/")
+            .defaultSuccessUrl("/home")
             .permitAll()
         )
         .logout(logout -> logout

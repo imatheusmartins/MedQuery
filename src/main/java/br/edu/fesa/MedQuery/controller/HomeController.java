@@ -20,38 +20,17 @@ import br.edu.fesa.MedQuery.repositories.PacienteRepository;
 import br.edu.fesa.MedQuery.util.PasswordUtil;
 
 @Controller
-@RequestMapping("/pacienteteste")
-public class PacienteController {
+public class HomeController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    @PostMapping("/cadastroteste")
-    public ModelAndView cadastro(Paciente paciente){
-        ModelAndView mv =  new ModelAndView("login/login");
+    @GetMapping("/home")
+    public ModelAndView login(Paciente paciente){
+        ModelAndView mv =  new ModelAndView("home/home");
 
-        String hashSenha = PasswordUtil.encoder(paciente.getSenha());
-        paciente.setSenha(hashSenha);
+        //mv.addObject("paciente", paciente);
 
-        mv.addObject("paciente", paciente); //usuario é o objeto enviado pelo html.
-
-        try {
-            pacienteRepository.save(paciente);
-            System.out.println("Salvo com sucesso: " + paciente.getEmail());
-        return home();
-        } catch (Exception e) {
-            mv.addObject("msgErro", e.getMessage());
-            System.out.println("Erro ao salvar " + e.getMessage());
-            return mv;
-        }
-    }
-
-    
-
-    @GetMapping("/login")
-    public ModelAndView home(){
-        ModelAndView mv =  new ModelAndView("login/login");
         return mv;
-    }
-
+    } 
 }

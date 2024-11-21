@@ -20,15 +20,4 @@ public class Paciente extends User{
 
     public Paciente() {
     }
-
-    // @OneToMany(mappedBy = "paciente")
-    // private List<Agendamento> agendamentos = new ArrayList<>();
-
-    // public List<Agendamento> getAgendamentos() {
-    //     return agendamentos;
-    // }
-
-    // public void setChamados(List<Agendamento> agendamentos) {
-    //     this.agendamentos = agendamentos;
-    // }
 }

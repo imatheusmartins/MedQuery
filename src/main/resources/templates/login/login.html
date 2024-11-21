@@ -11,23 +11,27 @@
     <div class="container right-panel-active">
         <!-- Sign Up -->
         <div class="container__form container--signup">
-            <form th:action="@{/paciente/cadastro-paciente}" method="post" th:object="${paciente}" enctype="multipart/form-data">
-                <h2 class="form__title">Sign Up</h2>
+            <form th:action="@{/cadastro}" method="post" th:object="${paciente}" enctype="multipart/form-data" id="form1" class="form">
+                <h2 class="form__title">Cadastrar</h2>
                 <input type="email" placeholder="Email" class="input" th:field="*{email}" id="email"/>
-                <input type="senha" placeholder="Senha" class="input" th:field="*{senha}" id="senha"/>
+                <input type="password" placeholder="Senha" class="input" th:field="*{senha}" id="senha"/>
 
                 <button type="submit" class="btn">Sign Up</button>
             </form>
         </div>
 
+        <div th:if="${msgErro}" class="alert alert-danger">
+            <p th:text="${msgErro}"></p>
+        </div>
+
         <!-- Sign In -->
         <div class="container__form container--signin">
-            <form action="#" class="form" id="form2">
-                <h2 class="form__title">Sign In</h2>
-                <input type="email" placeholder="Email" class="input" />
-                <input type="password" placeholder="Password" class="input" />
-                <a href="#" class="link">Forgot your password?</a>
-                <button class="btn">Sign In</button>
+            <form class="form" id="form2" method="post" th:action="@{/login}">
+                <h2 class="form__title">Entrar</h2>
+                <input type="email" placeholder="Email" name="username" class="input" />
+                <input type="password" placeholder="Password" name="password" class="input" />
+                <a href="#" class="link">Esqueceu sua senha?</a>
+                <button type="submit" class="btn">Entrar</button>
             </form>
         </div>
 
@@ -35,10 +39,10 @@
         <div class="container__overlay">
             <div class="overlay">
                 <div class="overlay__panel overlay--left">
-                    <button class="btn" id="signIn">Sign In</button>
+                    <button class="btn" id="signIn">Entrar</button>
                 </div>
                 <div class="overlay__panel overlay--right">
-                    <button class="btn" id="signUp">Sign Up</button>
+                    <button class="btn" id="signUp">Cadastrar</button>
                 </div>
             </div>
         </div>
