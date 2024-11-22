@@ -35,7 +35,7 @@ public class SecurityConfigurations{
         http.cors(cors -> cors.disable()) // Configurações de CORS
         .csrf(csrf -> csrf.disable()) // Desativa CSRF
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers( "/css/**", "/js/**", "/img/**", "/login/**").permitAll()
+            .requestMatchers( "/css/**", "/js/**", "/img/**", "/fonts/**", "/login/**", "/cadastro/**").permitAll()
             .anyRequest().authenticated()
         )
         .formLogin(form -> form //após login, o usuário é automaticamente redirecionado

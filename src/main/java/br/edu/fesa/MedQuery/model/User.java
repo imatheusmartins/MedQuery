@@ -1,6 +1,10 @@
 package br.edu.fesa.MedQuery.model;
 
+import java.util.UUID;
+
 import br.edu.fesa.MedQuery.enums.UserRole;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,9 +14,12 @@ import jakarta.persistence.MappedSuperclass;
 public abstract class User { //Classe geral para usuários
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private String nome;
+    @Column(name = "EMAIL", nullable = false, unique = true, length = 20)
     private String email; 
     private String senha;
     private String imagem;
@@ -21,7 +28,7 @@ public abstract class User { //Classe geral para usuários
     public User(){}
 
 
-    public User(Integer id, String nome, String email, String senha, String imagem, UserRole perfil) {
+    public User(UUID id, String nome, String email, String senha, String imagem, UserRole perfil) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -39,10 +46,10 @@ public abstract class User { //Classe geral para usuários
     }
 
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
     public String getNome() {
