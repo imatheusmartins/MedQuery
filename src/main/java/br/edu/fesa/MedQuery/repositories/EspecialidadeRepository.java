@@ -1,0 +1,15 @@
+package br.edu.fesa.MedQuery.repositories;
+
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import br.edu.fesa.MedQuery.enums.Especialidade;
+
+@Repository
+public interface EspecialidadeRepository extends JpaRepository<Especialidade, UUID>{
+
+    Optional<Especialidade> findById(UUID id);
+}

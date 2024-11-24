@@ -27,75 +27,75 @@ public class ClinicaController {
     // @Autowired
     // private ChamadoRepository chamadoRepository;
 
-    // @GetMapping
-    // public ModelAndView clinicaHome(@RequestParam(defaultValue = "1") int page){
-    //     ModelAndView mv = new ModelAndView("home/index");
-    //     Pageable pageReq = PageRequest.of((page - 1),  2);
-    //     Page<Chamado> resultPage = chamadoRepository.findAll(pageReq);
-    //     mv.addObject("chamadosList", resultPage);
-    //     return mv;
-    // }
+    @GetMapping
+    public ModelAndView clinicaHome(@RequestParam(defaultValue = "1") int page){
+        ModelAndView mv = new ModelAndView("home/index");
+        Pageable pageReq = PageRequest.of((page - 1),  2);
+        Page<Chamado> resultPage = chamadoRepository.findAll(pageReq);
+        mv.addObject("chamadosList", resultPage);
+        return mv;
+    }
 
-    // @GetMapping("/cadastro")
-    // public ModelAndView cadastro(Clinica clinica){
-    //     ModelAndView mv = new ModelAndView("clinica/cadastro");
-    //     mv.addObject("clinica", clinica);
-    //     UserRole[] profiles = {UserRole.ADMIN, UserRole.GESTOR};
-    //     mv.addObject("perfils", profiles);
-    //     return mv;
-    // }
+    @GetMapping("/cadastro")
+    public ModelAndView cadastro(Clinica clinica){
+        ModelAndView mv = new ModelAndView("clinica/cadastro");
+        mv.addObject("clinica", clinica);
+        UserRole[] profiles = {UserRole.ADMIN, UserRole.GESTOR};
+        mv.addObject("perfils", profiles);
+        return mv;
+    }
 
-    // @PostMapping("/cadastro-clinica")
-    // public ModelAndView cadastro(@ModelAttribute Clinica clinica, @RequestParam("file") MultipartFile imagem){
-    //    ModelAndView mv =  new ModelAndView("tecnico/cadastro");
-    // //    String hashSenha = PasswordUtil.encoder(clinica.getSenha());
-    // //    clinica.setSenha(hashSenha);
-    //    mv.addObject("tecnico", tecnico);
+    @PostMapping("/cadastro-clinica")
+    public ModelAndView cadastro(@ModelAttribute Clinica clinica, @RequestParam("file") MultipartFile imagem){
+       ModelAndView mv =  new ModelAndView("tecnico/cadastro");
+    //    String hashSenha = PasswordUtil.encoder(clinica.getSenha());
+    //    clinica.setSenha(hashSenha);
+       mv.addObject("tecnico", tecnico);
 
-    //    try {
-    //     if(UploadUtil.fazerUploadImagem(imagem)){
-    //         tecnico.setImagem(imagem.getOriginalFilename());
-    //     }
-    //     tecRepository.save(tecnico);
-    //     System.out.println("Salvo com sucesso: " + tecnico.getNome() + " " + tecnico.getImagem());
-    //     return home(1);
-    //    } catch (Exception e) {
-    //         mv.addObject("msgErro", e.getMessage());
-    //         System.out.println("Erro ao salvar " + e.getMessage());
-    //         return mv;
-    //    }
+       try {
+        if(UploadUtil.fazerUploadImagem(imagem)){
+            tecnico.setImagem(imagem.getOriginalFilename());
+        }
+        tecRepository.save(tecnico);
+        System.out.println("Salvo com sucesso: " + tecnico.getNome() + " " + tecnico.getImagem());
+        return home(1);
+       } catch (Exception e) {
+            mv.addObject("msgErro", e.getMessage());
+            System.out.println("Erro ao salvar " + e.getMessage());
+            return mv;
+       }
 
-    // }
+    }
 
 
-    // @GetMapping("list-tecnicos")
-    // public ModelAndView tecnicosList(){
-    //     ModelAndView mv = new ModelAndView("tecnico/tecnico-list");
-    //     mv.addObject("tecnicos", tecRepository.findAll());
-    //     return mv;
-    // }
+    @GetMapping("list-tecnicos")
+    public ModelAndView tecnicosList(){
+        ModelAndView mv = new ModelAndView("tecnico/tecnico-list");
+        mv.addObject("tecnicos", tecRepository.findAll());
+        return mv;
+    }
 
-    // @GetMapping("/home-tecnico")
-    // public ModelAndView home(@RequestParam(defaultValue = "1") int page){
-    //     ModelAndView mv =  new ModelAndView("home/index");
-    //      Pageable pageReq = PageRequest.of((page - 1),  2);
-    //     Page<Chamado> resultPage = chamadoRepository.findAll(pageReq);
-    //     mv.addObject("chamadosList", resultPage);
-    //     return mv;
-    // }
+    @GetMapping("/home-tecnico")
+    public ModelAndView home(@RequestParam(defaultValue = "1") int page){
+        ModelAndView mv =  new ModelAndView("home/index");
+         Pageable pageReq = PageRequest.of((page - 1),  2);
+        Page<Chamado> resultPage = chamadoRepository.findAll(pageReq);
+        mv.addObject("chamadosList", resultPage);
+        return mv;
+    }
 
-    // @GetMapping("/editar/{id}")
-    // public ModelAndView editar(@PathVariable("id") Integer id){
-    //     ModelAndView mv =  new ModelAndView("tecnico/editar");
-    //     mv.addObject("perfils", Perfil.values());
-    //     mv.addObject("tec", tecRepository.findById(id));
-    //     return mv;
-    // }
+    @GetMapping("/editar/{id}")
+    public ModelAndView editar(@PathVariable("id") Integer id){
+        ModelAndView mv =  new ModelAndView("tecnico/editar");
+        mv.addObject("perfils", Perfil.values());
+        mv.addObject("tec", tecRepository.findById(id));
+        return mv;
+    }
 
-    // @PostMapping("/editar-tecnico")
-    // public ModelAndView editar(Tecnico tecnico){
-    //     ModelAndView mv =  new ModelAndView("tecnico/editar");
-    //     tecRepository.save(tecnico);
-    //     return tecnicosList();
-    // }
+    @PostMapping("/editar-tecnico")
+    public ModelAndView editar(Tecnico tecnico){
+        ModelAndView mv =  new ModelAndView("tecnico/editar");
+        tecRepository.save(tecnico);
+        return tecnicosList();
+    }
 }

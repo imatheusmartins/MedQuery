@@ -17,7 +17,7 @@ public abstract class User { //Classe geral para usuários
     @Basic(optional = false)
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Integer id;
     private String nome;
     @Column(name = "EMAIL", nullable = false, unique = true, length = 20)
     private String email; 
@@ -28,7 +28,7 @@ public abstract class User { //Classe geral para usuários
     public User(){}
 
 
-    public User(UUID id, String nome, String email, String senha, String imagem, UserRole userRole) {
+    public User(Integer id, String nome, String email, String senha, String imagem, UserRole perfil) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -46,10 +46,10 @@ public abstract class User { //Classe geral para usuários
     }
 
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getNome() {

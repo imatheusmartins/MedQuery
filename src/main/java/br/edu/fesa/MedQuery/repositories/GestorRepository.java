@@ -1,6 +1,6 @@
 package br.edu.fesa.MedQuery.repositories;
+
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,14 +9,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.edu.fesa.MedQuery.model.Clinica;
-import br.edu.fesa.MedQuery.model.Paciente;
+import br.edu.fesa.MedQuery.model.Gestor;
 
 @Repository
-public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
+public interface GestorRepository extends JpaRepository<Gestor, Integer> {
 
-    Optional<Paciente> findByEmail(String email);
 
-    @Query(value = "select * from paciente", nativeQuery = true)
-    public Page<Paciente> findAllPacientes(Pageable page);
-    
+    Optional<Gestor> findByEmail(String email);
+
+    @Query(value = "select * from gestor", nativeQuery = true)
+    public Page<Gestor> findAllGestores(Pageable page);
 }
