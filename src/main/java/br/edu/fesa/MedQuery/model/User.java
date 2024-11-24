@@ -1,5 +1,6 @@
 package br.edu.fesa.MedQuery.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import br.edu.fesa.MedQuery.enums.UserRole;
@@ -23,6 +24,8 @@ public abstract class User { //Classe geral para usuários
     private String email; 
     private String senha;
     private String imagem;
+    private LocalDate dataAdicionado = LocalDate.now();
+    private LocalDate dataApagado = LocalDate.now();
     private UserRole perfil;
 
     public User(){}

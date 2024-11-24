@@ -10,7 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -23,18 +24,19 @@ public class Endereco {
     private Integer id;
     private String rua;
     private String bairro;
-    private String cidade;
-    private String estado;
     private int numero;
+
+    @ManyToOne
+    @JoinColumn(name = "cidade_id_fk")
+    private Cidade cidade;
 
     @OneToOne(mappedBy = "endereco")
     private Clinica clinica;
     
-    public Endereco(String rua, String bairro, String cidade, String estado, int numero) {
+    public Endereco(String rua, String bairro, Cidade cidade, int numero) {
         this.rua = rua;
         this.bairro = bairro;
         this.cidade = cidade;
-        this.estado = estado;
         this.numero = numero;
     }
 
@@ -58,20 +60,12 @@ public class Endereco {
         this.bairro = bairro;
     }
 
-    public String getCidade() {
+    public Cidade getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
+    public void setCidade(Cidade cidade) {
         this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public int getNumero() {
@@ -81,6 +75,4 @@ public class Endereco {
     public void setNumero(int numero) {
         this.numero = numero;
     }
-
-    
 }

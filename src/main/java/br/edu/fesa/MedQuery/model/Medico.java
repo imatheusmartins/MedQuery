@@ -25,7 +25,7 @@ public class Medico extends User{
     @Column(name = "CRM", nullable = false, unique = true, length = 20)
     private String crm;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "clinica_id_fk")
     private Clinica clinica;
 
@@ -36,6 +36,21 @@ public class Medico extends User{
         inverseJoinColumns = @JoinColumn(name = "especialidade_id")
     )
     private Set<Especialidade> especialidades = new HashSet<>();
+
+    @OneToMany(mappedBy = "medico")
+    private List<Agendamento> agendamentos = new ArrayList<>();
+
+    public Medico(Integer id, String nome, String email, String senha, String imagem, UserRole perfil, String crm) {
+        super(id, nome, email, senha, imagem, perfil);
+        this.crm = crm;
+    }
+
+    public Medico(String email, String senha) {
+        super(email, senha); // Chama o construtor da classe User
+    }
+
+    public Medico() {
+    }
 
     public Set<Especialidade> getEspecialidades() {
         return especialidades;
@@ -58,21 +73,5 @@ public class Medico extends User{
 
     public void setClinica(Clinica clinica) {
         this.clinica = clinica;
-    }
-
-
-    @OneToMany(mappedBy = "medico")
-    private List<Agendamento> agendamentos = new ArrayList<>();
-
-    public Medico(Integer id, String nome, String email, String senha, String imagem, UserRole perfil, String crm) {
-        super(id, nome, email, senha, imagem, perfil);
-        this.crm = crm;
-    }
-
-    public Medico(String email, String senha) {
-        super(email, senha); // Chama o construtor da classe User
-    }
-
-    public Medico() {
     }
 }

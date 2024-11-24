@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fesa.MedQuery.model.Agendamento;
 import br.edu.fesa.MedQuery.model.Medico;
-import br.edu.fesa.MedQuery.model.Paciente;
 import br.edu.fesa.MedQuery.repositories.AgendamentoRepository;
 import br.edu.fesa.MedQuery.repositories.MedicoRepository;
 import br.edu.fesa.MedQuery.util.PasswordUtil;

@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fesa.MedQuery.enums.UserRole;
-import br.edu.fesa.MedQuery.model.Especialidade;
-import br.edu.fesa.MedQuery.repositories.EspecialidadeRepository;
+import br.edu.fesa.MedQuery.model.Cidade;
+import br.edu.fesa.MedQuery.repositories.CidadeRepository;
 
-public class EspecialidadeController {
+public class CidadeController {
 
-    private EspecialidadeRepository especialidadeRepository;
+    private CidadeRepository cidadeRepository;
 
-    public EspecialidadeController(EspecialidadeRepository especialidadeRepository){
-        this.especialidadeRepository = especialidadeRepository;
+    public CidadeController(CidadeRepository cidadeRepository){
+        this.cidadeRepository = cidadeRepository;
     }
 
     // @GetMapping
@@ -32,32 +32,32 @@ public class EspecialidadeController {
     //     return mv;
     // }
 
-    @GetMapping("/home-especialidade")
+    @GetMapping("/home-cidade")
     public ModelAndView home(@RequestParam(defaultValue = "1") int page){
         ModelAndView mv =  new ModelAndView("home/index");
         Pageable pageReq = PageRequest.of((page - 1),  2);
-        Page<Especialidade> resultPage = especialidadeRepository.findAllEspecialidades(pageReq);
-        mv.addObject("especialidadesList", resultPage);
+        Page<Cidade> resultPage = cidadeRepository.findAllCidades(pageReq);
+        mv.addObject("cidadesList", resultPage);
         return mv;
     }
 
     @GetMapping("/cadastro")
-    public ModelAndView getCadastro(Especialidade especialidade){
-        ModelAndView mv = new ModelAndView("especialidade/cadastro");
-        mv.addObject("especialidade", especialidade);
+    public ModelAndView getCadastro(Cidade cidade){
+        ModelAndView mv = new ModelAndView("cidade/cadastro");
+        mv.addObject("cidade", cidade);
         UserRole[] profiles = {UserRole.ADMIN, UserRole.GESTOR};
         mv.addObject("perfils", profiles);
         return mv;
     }
 
-    @PostMapping("/cadastro-especialidade")
-    public ModelAndView cadastro(@ModelAttribute Especialidade especialidade){
-       ModelAndView mv =  new ModelAndView("especialidade/cadastro");
-       mv.addObject("especialidade", especialidade);
+    @PostMapping("/cadastro-cidade")
+    public ModelAndView cadastro(@ModelAttribute Cidade cidade){
+       ModelAndView mv =  new ModelAndView("cidade/cadastro");
+       mv.addObject("cidade", cidade);
 
        try {
-        especialidadeRepository.save(especialidade);
-        System.out.println("Salvo com sucesso: " + especialidade.getNome());
+        cidadeRepository.save(cidade);
+        System.out.println("Salvo com sucesso: " + cidade.getNome());
         return home(1);
        } catch (Exception e) {
             mv.addObject("msgErro", e.getMessage());
@@ -66,24 +66,24 @@ public class EspecialidadeController {
        }
     }
 
-    @GetMapping("list-especialidades")
-    public ModelAndView especialidadesList(){
-        ModelAndView mv = new ModelAndView("especialidade/especialidade-list");
-        mv.addObject("especialidades", especialidadeRepository.findAll());
+    @GetMapping("list-cidade")
+    public ModelAndView cidadesList(){
+        ModelAndView mv = new ModelAndView("cidade/cidade-list");
+        mv.addObject("cidades", cidadeRepository.findAll());
         return mv;
     }
 
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable("id") Integer id){
-        ModelAndView mv =  new ModelAndView("especialidade/editar");
-        mv.addObject("especialidade", especialidadeRepository.findById(id));
+        ModelAndView mv =  new ModelAndView("cidade/editar");
+        mv.addObject("cidade", cidadeRepository.findById(id));
         return mv;
     }
 
-    @PostMapping("/editar-especialidade")
-    public ModelAndView editar(Especialidade especialidade){
-        ModelAndView mv =  new ModelAndView("especialidade/editar");
-        especialidadeRepository.save(especialidade);
-        return especialidadesList();
+    @PostMapping("/editar-cidade")
+    public ModelAndView editar(Cidade cidade){
+        ModelAndView mv =  new ModelAndView("cidade/editar");
+        cidadeRepository.save(cidade);
+        return cidadesList();
     }
 }

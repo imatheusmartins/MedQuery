@@ -14,21 +14,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fesa.MedQuery.model.Agendamento;
 import br.edu.fesa.MedQuery.model.Gestor;
-import br.edu.fesa.MedQuery.model.Paciente;
 import br.edu.fesa.MedQuery.repositories.AgendamentoRepository;
 import br.edu.fesa.MedQuery.repositories.GestorRepository;
-import br.edu.fesa.MedQuery.repositories.PacienteRepository;
 import br.edu.fesa.MedQuery.util.PasswordUtil;
 
 @Controller
 @RequestMapping("/gestor")
 public class GestorController {
 
-    @Autowired
     private GestorRepository gestorRepository;
     
-    @Autowired
     private AgendamentoRepository agendamentoRepository;
+
+    public GestorController(GestorRepository gestorRepository, AgendamentoRepository agendamentoRepository){
+        this.gestorRepository = gestorRepository;
+        this.agendamentoRepository = agendamentoRepository;
+    }
 
     @PostMapping("/cadastro")
     public ModelAndView cadastro(Gestor gestor){
