@@ -4,7 +4,7 @@ public enum Status {
 
     ABERTO("Aberto"),
     CANCELADO("Cancelado"),
-    FECHADO("Fechado");
+    FINALIZADO("Finalizado");
 
     private String status;
 
@@ -12,11 +12,11 @@ public enum Status {
         this.status = status;
     }
 
-    public String getChamadoTicket() {
+    public String getStatus() {
         return status;
     }
 
-    public void setChamadoTicket(String status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
