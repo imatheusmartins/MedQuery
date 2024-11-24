@@ -17,7 +17,7 @@ private Paciente paciente;
         this.paciente = paciente;
     }
 
-    public UUID getId(){
+    public Integer getId(){
         return paciente.getId();
     }
 

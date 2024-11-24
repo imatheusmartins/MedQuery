@@ -2,7 +2,7 @@ package br.edu.fesa.MedQuery.enums;
 
 public enum UserRole {
     ADMIN("admin"),
-    ADMINISTRADOR("administrador"),
+    GESTOR("gestor"),
     PACIENTE("paciente"),
     MEDICO("medico");
 

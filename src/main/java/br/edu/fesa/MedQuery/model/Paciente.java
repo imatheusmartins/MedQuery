@@ -11,7 +11,10 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Paciente extends User{
 
-    public Paciente(UUID id, String nome, String email, String senha, String imagem, UserRole perfil) {
+    @OneToMany(mappedBy = "paciente")
+    private List<Agendamento> agendamentos = new ArrayList<>();
+
+    public Paciente(Integer id, String nome, String email, String senha, String imagem, UserRole perfil) {
         super(id, nome, email, senha, imagem, perfil);
     }
 

@@ -1,0 +1,98 @@
+package br.edu.fesa.MedQuery.model;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
+import br.edu.fesa.MedQuery.enums.UserRole;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+
+@Entity
+public class Clinica {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String nome;
+    private String imagem;
+
+    @OneToOne
+    @JoinColumn(name = "endereco_id_fk")
+    private Endereco endereco;
+
+    // @ManyToOne
+    // @JoinColumn(name = "matriz_id")
+    // private Clinica matriz;
+
+    // @OneToMany(mappedBy = "matriz")
+    // private Set<Clinica> filiais = new HashSet<>();
+
+    @OneToOne(mappedBy = "clinica")
+    private Gestor gestor;
+
+    @OneToMany(mappedBy = "clinica")
+    private List<Medico> medicos = new ArrayList<>();
+
+    public Clinica (){};
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    // public Clinica getMatriz() {
+    //     return matriz;
+    // }
+
+    // public void setMatriz(Clinica matriz) {
+    //     this.matriz = matriz;
+    // }
+
+    // public Gestor getGestor() {
+    //     return gestor;
+    // }
+
+    // public void setGestor(Gestor gestor) {
+    //     this.gestor = gestor;
+    // }
+
+    
+}
