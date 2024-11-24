@@ -1,6 +1,8 @@
 package br.edu.fesa.MedQuery.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -33,9 +35,36 @@ public class Medico extends User{
         joinColumns = @JoinColumn(name = "medico_id"),
         inverseJoinColumns = @JoinColumn(name = "especialidade_id")
     )
-    private Set<Especialidade> courses = new HashSet<>();
+    private Set<Especialidade> especialidades = new HashSet<>();
 
-    public Medico(UUID id, String nome, String email, String senha, String imagem, UserRole perfil, String crm) {
+    public Set<Especialidade> getEspecialidades() {
+        return especialidades;
+    }
+
+    public void setEspecialidades(Set<Especialidade> especialidades) {
+        this.especialidades = especialidades;
+    }
+    public String getCrm() {
+        return crm;
+    }
+
+    public void setCrm(String crm) {
+        this.crm = crm;
+    }
+
+    public Clinica getClinica() {
+        return clinica;
+    }
+
+    public void setClinica(Clinica clinica) {
+        this.clinica = clinica;
+    }
+
+
+    @OneToMany(mappedBy = "medico")
+    private List<Agendamento> agendamentos = new ArrayList<>();
+
+    public Medico(Integer id, String nome, String email, String senha, String imagem, UserRole perfil, String crm) {
         super(id, nome, email, senha, imagem, perfil);
         this.crm = crm;
     }

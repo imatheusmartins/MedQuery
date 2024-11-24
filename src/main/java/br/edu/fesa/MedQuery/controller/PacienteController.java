@@ -9,12 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fesa.MedQuery.model.Agendamento;
@@ -24,7 +22,7 @@ import br.edu.fesa.MedQuery.repositories.PacienteRepository;
 import br.edu.fesa.MedQuery.util.PasswordUtil;
 
 @Controller
-@RequestMapping("/pacienteteste")
+@RequestMapping("/paciente") //pacienteteste
 public class PacienteController {
 
     @Autowired
@@ -33,7 +31,7 @@ public class PacienteController {
     @Autowired
     private AgendamentoRepository agendamentoRepository;
 
-    @PostMapping("/cadastroteste")
+    @PostMapping("/cadastro")//cadastroteste
     public ModelAndView cadastro(Paciente paciente){
         ModelAndView mv =  new ModelAndView("login/login");
 
@@ -63,7 +61,7 @@ public class PacienteController {
     @GetMapping("/home-paciente")
     public ModelAndView home(@RequestParam(defaultValue = "1") int page){
         ModelAndView mv =  new ModelAndView("home/index");
-         Pageable pageReq = PageRequest.of((page - 1),  2);
+        Pageable pageReq = PageRequest.of((page - 1),  2);
         Page<Agendamento> resultPage = agendamentoRepository.findAll(pageReq);
         mv.addObject("agendamentosList", resultPage);
         return mv;

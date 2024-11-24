@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import br.edu.fesa.MedQuery.model.Clinica;
 import br.edu.fesa.MedQuery.model.Medico;
 
 @Repository
@@ -22,7 +21,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer> {
     @Query(value = "select m from Medico m join m.especialidades e where e.id = :especialidadeId")
     List<Medico> findByEspecialidadeId(@Param("especialidadeId") Integer especialidadeId);
 
-    @Query(value = "select * from medico", nativeQuery = true)
+    @Query(value = "select *  from medico", nativeQuery = true)
     public Page<Medico> findAllMedicos(Pageable page);
 
 }

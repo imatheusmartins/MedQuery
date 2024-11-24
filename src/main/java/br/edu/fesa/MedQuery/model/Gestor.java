@@ -14,7 +14,7 @@ public class Gestor extends User {
     @JoinColumn(name = "clinica_id_fk")
     private Clinica clinica;
 
-    public Gestor(UUID id, String nome, String email, String senha, String imagem, UserRole perfil) {
+    public Gestor(Integer id, String nome, String email, String senha, String imagem, UserRole perfil) {
         super(id, nome, email, senha, imagem, perfil);
     }
 
