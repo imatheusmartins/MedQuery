@@ -6,13 +6,17 @@ public enum UserRole {
     PACIENTE("paciente"),
     MEDICO("medico");
 
-    private String role;
+    private String userRole;
 
-    UserRole (String role){
-        this.role = role;
+    private UserRole(String userRole){
+        this.userRole = userRole;
     }
 
-    public String getRole(){
-        return role;
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }

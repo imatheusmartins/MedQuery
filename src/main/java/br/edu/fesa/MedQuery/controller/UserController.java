@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.edu.fesa.MedQuery.enums.UserRole;
 import br.edu.fesa.MedQuery.model.Paciente;
 import br.edu.fesa.MedQuery.repositories.PacienteRepository;
 import br.edu.fesa.MedQuery.util.PasswordUtil;
@@ -27,9 +28,18 @@ public class UserController {
         return mv;
     } 
 
-    @PostMapping("/cadastro")
-    public String cadastro(Paciente paciente){
-        ModelAndView mv =  new ModelAndView("login/login");
+    @GetMapping("/cadastro")
+    public ModelAndView cadastro(Paciente paciente){
+        ModelAndView mv =  new ModelAndView("login/cadastro");
+        mv.addObject("userRoles", UserRole.values());
+        mv.addObject("paciente", paciente);
+
+        return mv;
+    }
+
+    @PostMapping("/cadastro-user")
+    public String cadastroOld(Paciente paciente){
+        ModelAndView mv =  new ModelAndView("login/cadastro");
 
         String hashSenha = PasswordUtil.encoder(paciente.getSenha());
         paciente.setSenha(hashSenha);

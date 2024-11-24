@@ -35,8 +35,9 @@ public class SecurityConfigurations{
         http.cors(cors -> cors.disable()) // Configurações de CORS
         .csrf(csrf -> csrf.disable()) // Desativa CSRF
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers( "/css/**", "/js/**", "/img/**", "/fonts/**", "/login/**", "/cadastro/**").permitAll()
+            .requestMatchers( "/css/**", "/js/**", "/img/**", "/fonts/**", "/login/**", "/cadastro/**", "/cadastro-user/**, /vendors/**").permitAll()
             .anyRequest().authenticated()
+            //.anyRequest().permitAll()
         )
         .formLogin(form -> form //após login, o usuário é automaticamente redirecionado
             .loginPage("/login")
@@ -52,7 +53,7 @@ public class SecurityConfigurations{
         );
 
         // Desabilitar cache para evitar problemas de controle de cache em arquivos estáticos
-        http.headers(headers -> headers.cacheControl(cache -> cache.disable()));
+        //http.headers(headers -> headers.cacheControl(cache -> cache.disable()));
 
         return http.build();
     }

@@ -29,8 +29,6 @@ public class HomeController {
     public ModelAndView login(Paciente paciente){
         ModelAndView mv =  new ModelAndView("home/home");
 
-        //mv.addObject("paciente", paciente);
-
         return mv;
     } 
 }

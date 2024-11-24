@@ -8,51 +8,45 @@
       </li>
     
       <li class="nav-item mt-4">
-        <!-- <a class="nav-link"   th:href="@{ticket/criar}" > -->
+        <a class="nav-link" th:href="@{/autoavaliacao}"> 
           <i class="mdi mdi-clipboard-text"></i>
-          <span class="menu-title">&nbsp;&nbsp; CHAMADO</span>
+          <span class="menu-title">&nbsp;&nbsp; AGENDAR</span>
+        </a>
+      </li>
+
+      <li class="nav-item mt-4">
+        <a class="nav-link" th:href="@{/autoavaliacao}"> 
+          <i class="mdi mdi-clipboard-text"></i>
+          <span class="menu-title">&nbsp;&nbsp; HISTÓRICO</span>
         </a>
       </li>
     
-      <li class="nav-item" >
-        <a class="nav-link" data-toggle="collapse" href="#tecs" >
-          <i class="mdi mdi-account-star"></i>
-          <span class="menu-title">&nbsp;&nbsp; AGENDAMENTOS &nbsp;&nbsp;</span>
-          <i class="mdi mdi-chevron-down"></i>
-        </a>
-        <div class="collapse" id="tecs">
-          <ul class="nav flex-column sub-menu">
-            <!-- <li class="nav-item"><a th:href="@{tecnico/cadastro}" class="nav-link">Novo Técnico</a></li>
-            <li class="nav-item"><a th:href="@{tecnico/list-tecnicos}" class="nav-link">Lista de Técnicos</a></li> -->
-            </ul>
-          </div>
-      </li>
+      
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#users">
+        <a class="nav-link" data-toggle="collapse" href="#medicos">
           <i class="mdi mdi-account-multiple"></i>
-          <span class="menu-title">&nbsp;&nbsp; USUÁRIOS &nbsp;&nbsp;</span>
+          <span class="menu-title">&nbsp;&nbsp; MÉDICOS &nbsp;&nbsp;</span>
           <i class="mdi mdi-chevron-down"></i>
         </a>
-        <div class="collapse" id="users">
+        <div class="collapse" id="medicos">
           <ul class="nav flex-column sub-menu">
-            <!-- <li class="nav-item"><a th:href="@{cliente/cadastro}" class="nav-link">Novo Usuario</a></li>
-            <li class="nav-item"><a th:href="@{cliente/list-clientes}" class="nav-link">Lista de Clientes</a></li> -->
+            <li class="nav-item"><a th:href="@{medico/cadastro}" class="nav-link">Novo Medico</a></li>
+            <li class="nav-item"><a th:href="@{cliente/list-clientes}" class="nav-link">Lista de Médicos</a></li>
             </ul>
           </div>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#tables">
+        <a class="nav-link" data-toggle="collapse" href="#unidades">
           <i class="mdi mdi-gift"></i>
-          <span class="menu-title">&nbsp;&nbsp; RECURSOS &nbsp;&nbsp;</span>
+          <span class="menu-title">&nbsp;&nbsp; UNIDADES &nbsp;&nbsp;</span>
           <i class="mdi mdi-chevron-down"></i>
         </a>
-        <div class="collapse" id="tables">
+        <div class="collapse" id="unidades">
           <ul class="nav flex-column sub-menu">
-            <!-- <li class="nav-item"> <a class="nav-link" th:href="@{../recursos/icons}">Icones</a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{../recursos/elementos}">Elementos Básicos</a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{../recursos/buttons}">Buttons</a></li> -->
+            <li class="nav-item"> <a class="nav-link" th:href="@{../recursos/icons}">Cadastrar Unidade</a></li>
+            <li class="nav-item"> <a class="nav-link" th:href="@{../recursos/elementos}">Lista de Unidades</a></li>
           </ul>
         </div>
 

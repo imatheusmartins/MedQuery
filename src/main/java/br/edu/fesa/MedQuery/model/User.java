@@ -23,18 +23,18 @@ public abstract class User { //Classe geral para usuários
     private String email; 
     private String senha;
     private String imagem;
-    private UserRole perfil;
+    private UserRole userRole;
 
     public User(){}
 
 
-    public User(UUID id, String nome, String email, String senha, String imagem, UserRole perfil) {
+    public User(UUID id, String nome, String email, String senha, String imagem, UserRole userRole) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.imagem = imagem;
-        this.perfil = perfil;
+        this.userRole = userRole;
     }
 
     public User(String email, String senha) {
@@ -42,7 +42,7 @@ public abstract class User { //Classe geral para usuários
         this.senha = senha;
         this.nome = "Nome Padrão"; // Valor padrão
         this.imagem = "default.png"; // Valor padrão
-        this.perfil = UserRole.PACIENTE; // Valor padrão, supondo que você tenha um enum com 'PADRAO'
+        this.userRole = UserRole.PACIENTE; // Valor padrão, supondo que você tenha um enum com 'PADRAO'
     }
 
 
@@ -77,15 +77,15 @@ public abstract class User { //Classe geral para usuários
         this.imagem = imagem;
     }
     public UserRole getPerfil() {
-        return perfil;
+        return userRole;
     }
-    public void setPerfil(UserRole perfil) {
-        this.perfil = perfil;
+    public void setPerfil(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     @Override
     public String toString() {
         return "Pessoa [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", imagem=" + imagem
-                + ", perfil=" + perfil + "]";
+                + ", userRole=" + userRole + "]";
     }
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{fragments/head :: headImports}"></head>
+
+<body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-center auth px-0">
+                <div class="row w-100 mx-0">
+                    <div class="col-lg-4 mx-auto">
+                        <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                            <div class="brand-logo d-flex justify-content-center">
+                                <img src="../../img/medqueryLogoGreen.png" alt="logo" class="img-fluid w-50">
+                            </div>
+                            <h4>Olá seja bem-vindo(a)!</h4>
+                            <h6 class="font-weight-light">Preencha as informações</h6>
+                            <form class="pt-3" th:action="@{/cadastro-user}" method="post" th:object="${paciente}">
+                                <div class="form-group">
+                                    <input th:field="*{email}" type="email" class="form-control form-control-lg"
+                                        name="username" id="exampleInputEmail1" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <input th:field="*{senha}" type="password" class="form-control form-control-lg"
+                                        name="password" id="exampleInputPassword1" placeholder="Senha">
+                                </div>
+                                <div class="form-group">
+                                    <select name="Selecione seu Perfil" id="" class="form-control">
+                                        <option value="" disabled selected>Selecione seu papel</option>
+                                        <option th:each="userRole : ${userRoles}" th:text="${userRole}" th:value="${userRole}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mt-3">
+                                    <button type="submit"
+                                        class="btn btn-block btn-primary btn-lg font-weight-medium">CADASTRAR</button>
+                                </div>
+                                <div class="mt-4 d-flex justify-content-center">
+                                    <a th:href="@{/login}" 
+                                        class="btn btn-primary btn-lg font-weight-medium text-white px-4" 
+                                        role="button">ENTRAR</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

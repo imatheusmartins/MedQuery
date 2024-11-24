@@ -31,13 +31,13 @@ private Paciente paciente;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        UserRole perfil = paciente.getPerfil();
-        if(perfil == UserRole.ADMIN){
-            perfil = UserRole.ADMIN;
+        UserRole userRole = paciente.getPerfil();
+        if(userRole == UserRole.ADMIN){
+            userRole = UserRole.ADMIN;
         }else{
-            perfil = UserRole.PACIENTE;
+            userRole = UserRole.PACIENTE;
         }
-        return AuthorityUtils.createAuthorityList(perfil.toString());
+        return AuthorityUtils.createAuthorityList(userRole.toString());
     }
 
     @Override
