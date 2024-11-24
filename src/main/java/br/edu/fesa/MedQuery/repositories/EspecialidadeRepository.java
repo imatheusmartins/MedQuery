@@ -15,8 +15,6 @@ import br.edu.fesa.MedQuery.model.Especialidade;
 @Repository
 public interface EspecialidadeRepository extends JpaRepository<Especialidade, Integer>{
 
-    Optional<Especialidade> findById(Integer id);
-
     @Query(value = "select * from especialidade", nativeQuery = true)
     public Page<Especialidade> findAllEspecialidades(Pageable page);
 }

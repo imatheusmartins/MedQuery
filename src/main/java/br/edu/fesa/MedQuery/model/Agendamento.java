@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -24,19 +25,19 @@ public class Agendamento  {
     private TipoServico tipoServico;
     private Status status;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "clinica_id_fk")
     private Clinica clinica;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "paciente_id_fk")
     private Paciente paciente;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "medico_id_fk")
     private Medico medico;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "especialidade_id_fk")
     private Especialidade especialidade;
 

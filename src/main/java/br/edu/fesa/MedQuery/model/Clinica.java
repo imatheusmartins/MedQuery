@@ -37,7 +37,7 @@ public class Clinica {
     private List<Medico> medicos = new ArrayList<>();
 
     @OneToMany(mappedBy = "clinica")
-    private List<Agendamento> agendamentos = new ArrayList<>();
+    private List<Agendamento> agendamentos = new ArrayList<>(); 
 
     public Clinica (){};
 

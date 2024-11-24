@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fesa.MedQuery.enums.UserRole;
@@ -20,23 +19,23 @@ import br.edu.fesa.MedQuery.repositories.AgendamentoRepository;
 import br.edu.fesa.MedQuery.repositories.ClinicaRepository;
 import br.edu.fesa.MedQuery.repositories.GestorRepository;
 import br.edu.fesa.MedQuery.repositories.MedicoRepository;
-import br.edu.fesa.MedQuery.util.PasswordUtil;
 
 @Controller
 @RequestMapping("/clinica")
 public class ClinicaController {
 
-    @Autowired
     private ClinicaRepository clinicaRepository;
-
-    @Autowired
     private AgendamentoRepository agendamentoRepository;
-
-    @Autowired
     private MedicoRepository medicoRepository;
-
-    @Autowired
     private GestorRepository gestorRepository;
+
+    public ClinicaController(ClinicaRepository clinicaRepository, AgendamentoRepository agendamentoRepository, MedicoRepository medicoRepository, GestorRepository gestorRepository){
+        this.clinicaRepository = clinicaRepository;
+        this.agendamentoRepository = agendamentoRepository;
+        this.medicoRepository = medicoRepository;
+        this.gestorRepository = gestorRepository;
+
+    }
 
     // @GetMapping
     // public ModelAndView clinicaHome(@RequestParam(defaultValue = "1") int page){
@@ -48,7 +47,7 @@ public class ClinicaController {
     // }
 
     @GetMapping("/cadastro")
-    public ModelAndView cadastro(Clinica clinica){
+    public ModelAndView getCadastro(Clinica clinica){
         ModelAndView mv = new ModelAndView("clinica/cadastro");
         mv.addObject("clinica", clinica);
         UserRole[] profiles = {UserRole.ADMIN, UserRole.GESTOR};
@@ -78,7 +77,7 @@ public class ClinicaController {
     // }
 
     @PostMapping("/cadastro-clinica")
-    public ModelAndView cadastroPadrao(@ModelAttribute Clinica clinica){
+    public ModelAndView cadastro(@ModelAttribute Clinica clinica){
        ModelAndView mv =  new ModelAndView("clinica/cadastro");
     //    String hashSenha = PasswordUtil.encoder(clinica.getSenha());
     //    clinica.setSenha(hashSenha);

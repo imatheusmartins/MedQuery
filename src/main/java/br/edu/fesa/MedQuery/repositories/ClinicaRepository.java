@@ -14,11 +14,22 @@ import br.edu.fesa.MedQuery.model.Clinica;
 @Repository
 public interface ClinicaRepository extends JpaRepository<Clinica, Integer> {
 
-    Optional<Clinica> findByAdminId(Integer id);
+    List<Clinica> findByNome(String nome);
 
-    // List<Clinica> findByMatrizId(Integer matrizId);
+    // Buscar clínicas que possuem um determinado gestor
+    @Query("SELECT c FROM Clinica c WHERE c.gestor.id = :gestorId")
+    List<Clinica> findByGestorId(Integer gestorId);
 
-    @Query(value = "select * from clinica", nativeQuery = true)
-    public Page<Clinica> findAllClinicas(Pageable page);
+    // Buscar clínicas em uma cidade específica
+    @Query("SELECT c FROM Clinica c WHERE c.endereco.cidade.nome = :cidadeNome")
+    List<Clinica> findByCidadeNome(String cidadeNome);
+
+    // Encontrar clínicas com um número específico de médicos (pelo menos x médicos)
+    @Query("SELECT c FROM Clinica c WHERE SIZE(c.medicos) >= :quantidadeMedicos")
+    List<Clinica> findClinicasComMaisMedicos(Integer quantidadeMedicos);
+
+    // Buscar clínicas que possuem agendamentos
+    @Query("SELECT c FROM Clinica c WHERE c.agendamentos IS NOT EMPTY")
+    List<Clinica> findClinicasComAgendamentos();
 
 }
