@@ -51,7 +51,7 @@ public class ClinicaController {
         ModelAndView mv = new ModelAndView("clinica/cadastro");
         mv.addObject("clinica", clinica);
         UserRole[] profiles = {UserRole.ADMIN, UserRole.GESTOR};
-        mv.addObject("perfils", profiles);
+        mv.addObject("userRoles", profiles);
         return mv;
     }
 

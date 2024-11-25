@@ -40,8 +40,14 @@ public class Medico extends User{
     @OneToMany(mappedBy = "medico")
     private List<Agendamento> agendamentos = new ArrayList<>();
 
-    public Medico(Integer id, String nome, String email, String senha, String imagem, UserRole perfil, String crm) {
-        super(id, nome, email, senha, imagem, perfil);
+    public Medico(Integer id, String nome, String email, String senha, String imagem, UserRole userRole, String crm) {
+        super(id, nome, email, senha, imagem, userRole);
+        this.crm = crm;
+    }
+
+    //Utilizar essa 
+    public Medico(Integer id, String nome, String email, String senha, UserRole userRole, String crm) {
+        super(id, nome, email, senha, userRole);
         this.crm = crm;
     }
 

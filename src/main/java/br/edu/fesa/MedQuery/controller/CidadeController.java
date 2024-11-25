@@ -46,7 +46,7 @@ public class CidadeController {
         ModelAndView mv = new ModelAndView("cidade/cadastro");
         mv.addObject("cidade", cidade);
         UserRole[] profiles = {UserRole.ADMIN, UserRole.GESTOR};
-        mv.addObject("perfils", profiles);
+        mv.addObject("userRoles", profiles);
         return mv;
     }
 
