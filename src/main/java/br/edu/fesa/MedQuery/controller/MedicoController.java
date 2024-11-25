@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.edu.fesa.MedQuery.enums.UserRole;
 import br.edu.fesa.MedQuery.model.Agendamento;
 import br.edu.fesa.MedQuery.model.Medico;
+import br.edu.fesa.MedQuery.model.Paciente;
 import br.edu.fesa.MedQuery.repositories.AgendamentoRepository;
 import br.edu.fesa.MedQuery.repositories.MedicoRepository;
 import br.edu.fesa.MedQuery.util.PasswordUtil;
@@ -28,29 +30,41 @@ public class MedicoController {
     @Autowired
     private AgendamentoRepository agendamentoRepository;
 
-    @PostMapping("/cadastro")
-    public ModelAndView cadastro(Medico medico){
-        ModelAndView mv =  new ModelAndView("login/login");
+
+    //Método que incializa o html
+    @GetMapping("/cadastro")
+    public ModelAndView getCadastroMedico(Medico medico){
+        ModelAndView mv =  new ModelAndView("medico/cadastro");
+        mv.addObject("userRoles", UserRole.values());
+        mv.addObject("medico", medico);
+
+        return mv;
+    }
+
+    //Método que recebe o dado enviado no form do html 
+    @PostMapping("/cadastro-medico")
+    public String postCadastroMedico(Medico medico){
+        ModelAndView mv =  new ModelAndView("medico/cadastro");
 
         String hashSenha = PasswordUtil.encoder(medico.getSenha());
         medico.setSenha(hashSenha);
 
-        mv.addObject("medico", medico); //usuario é o objeto enviado pelo html.
+        mv.addObject("medico", medico);
 
         try {
             medicoRepository.save(medico);
             System.out.println("Salvo com sucesso: " + medico.getEmail());
-        return home();
+            return "redirect:/home";
         } catch (Exception e) {
             mv.addObject("msgErro", e.getMessage());
             System.out.println("Erro ao salvar " + e.getMessage());
-            return mv;
+            return "redirect:/home";
         }
     }
 
     @GetMapping("list-medicos")
     public ModelAndView medicosList(){
-        ModelAndView mv = new ModelAndView("medico/medico-list");
+        ModelAndView mv = new ModelAndView("medico/lista");
         mv.addObject("medicos", medicoRepository.findAll());
         return mv;
     }

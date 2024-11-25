@@ -27,17 +27,24 @@ public abstract class User { //Classe geral para usuários
     private UserRole userRole;
     private LocalDate dataAdicionado = LocalDate.now();
     private LocalDate dataApagado = LocalDate.now();
-    private UserRole perfil;
 
     public User(){}
 
 
-    public User(Integer id, String nome, String email, String senha, String imagem, UserRole perfil) {
+    public User(Integer id, String nome, String email, String senha, String imagem, UserRole userRole) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.imagem = imagem;
+        this.userRole = userRole;
+    }
+
+    public User(Integer id, String nome, String email, String senha, UserRole userRole) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
         this.userRole = userRole;
     }
 

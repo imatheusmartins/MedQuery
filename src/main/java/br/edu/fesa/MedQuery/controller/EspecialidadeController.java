@@ -46,7 +46,7 @@ public class EspecialidadeController {
         ModelAndView mv = new ModelAndView("especialidade/cadastro");
         mv.addObject("especialidade", especialidade);
         UserRole[] profiles = {UserRole.ADMIN, UserRole.GESTOR};
-        mv.addObject("perfils", profiles);
+        mv.addObject("userRoles", profiles);
         return mv;
     }
 
