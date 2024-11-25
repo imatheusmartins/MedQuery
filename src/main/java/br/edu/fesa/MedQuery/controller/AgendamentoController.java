@@ -45,7 +45,7 @@ public class AgendamentoController {
     public List<Agendamento> filtrarAgendamentos(
             @RequestParam(value = "cidadeNome", required = false) String cidadeNome,
             @RequestParam(value = "clinica", required = false) Clinica clinica,
-            @RequestParam(value = "meeico", required = false) Medico medico,
+            @RequestParam(value = "medico", required = false) Medico medico,
             @RequestParam(value = "especialidade", required = false) Especialidade especialidade,
             @RequestParam(value = "status", required = false) Status status,
             @RequestParam(value = "tipoServico", required = false) TipoServico tipoServico) {
