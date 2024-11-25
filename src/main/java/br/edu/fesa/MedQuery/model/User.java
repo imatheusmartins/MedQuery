@@ -19,33 +19,45 @@ public abstract class User { //Classe geral para usuários
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
     private String nome;
     @Column(name = "EMAIL", nullable = false, unique = true, length = 20)
     private String email; 
     private String senha;
     private String imagem;
     private UserRole userRole;
+    private Boolean ativo;
     private LocalDate dataAdicionado = LocalDate.now();
     private LocalDate dataApagado = LocalDate.now();
 
     public User(){}
 
 
-    public User(Integer id, String nome, String email, String senha, String imagem, UserRole userRole) {
+    public User(Integer id, String nome, String email, String senha, String imagem, UserRole userRole, Boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.imagem = imagem;
         this.userRole = userRole;
+        this.ativo = ativo;
     }
 
-    public User(Integer id, String nome, String email, String senha, UserRole userRole) {
+    public User(Integer id, String nome, String email, String senha, UserRole userRole, Boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.userRole = userRole;
+        this.ativo = ativo;
     }
 
     public User(String email, String senha) {
@@ -87,10 +99,10 @@ public abstract class User { //Classe geral para usuários
     public void setImagem(String imagem) {
         this.imagem = imagem;
     }
-    public UserRole getPerfil() {
+    public UserRole getUserRole() {
         return userRole;
     }
-    public void setPerfil(UserRole userRole) {
+    public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
 

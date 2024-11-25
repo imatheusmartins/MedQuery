@@ -14,8 +14,8 @@ public class Paciente extends User{
     @OneToMany(mappedBy = "paciente")
     private List<Agendamento> agendamentos = new ArrayList<>();
 
-    public Paciente(Integer id, String nome, String email, String senha, String imagem, UserRole userRole) {
-        super(id, nome, email, senha, imagem, userRole);
+    public Paciente(Integer id, String nome, String email, String senha, String imagem, UserRole userRole, Boolean ativo) {
+        super(id, nome, email, senha, imagem, userRole, ativo);
     }
 
     public Paciente(String email, String senha) {
