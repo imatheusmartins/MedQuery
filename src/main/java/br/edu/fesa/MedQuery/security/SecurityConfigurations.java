@@ -8,11 +8,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.core.env.Environment;
+
+import br.edu.fesa.MedQuery.service.GestorUserDetailsService;
+import br.edu.fesa.MedQuery.service.MedicoUserDetailsService;
 import br.edu.fesa.MedQuery.service.PacienteUserDetailsService;
 
 @Configuration
@@ -21,6 +23,12 @@ public class SecurityConfigurations{
 
     @Autowired
     private PacienteUserDetailsService pacienteUserDetailsService;
+
+    @Autowired
+    private GestorUserDetailsService gestorUserDetailsService;
+
+    @Autowired
+    private MedicoUserDetailsService medicoUserDetailsService;
 
     @Autowired
     private Environment env;
@@ -47,10 +55,10 @@ public class SecurityConfigurations{
         .logout(logout -> logout
             .logoutUrl("/logout")
             .logoutSuccessUrl("/login")
-        )
-        .rememberMe(rememberMe -> rememberMe
-            .key("keyRemember-me")
         );
+        // .rememberMe(rememberMe -> rememberMe
+        //     .key("keyRemember-me")
+        // );
 
         // Desabilitar cache para evitar problemas de controle de cache em arquivos estáticos
         //http.headers(headers -> headers.cacheControl(cache -> cache.disable()));
@@ -64,6 +72,14 @@ public class SecurityConfigurations{
 
         authenticationManagerBuilder
         .userDetailsService(pacienteUserDetailsService)
+        .passwordEncoder(passwordEncoder());
+
+        authenticationManagerBuilder
+        .userDetailsService(gestorUserDetailsService)
+        .passwordEncoder(passwordEncoder());
+
+        authenticationManagerBuilder
+        .userDetailsService(medicoUserDetailsService)
         .passwordEncoder(passwordEncoder());
 
         return authenticationManagerBuilder.build();

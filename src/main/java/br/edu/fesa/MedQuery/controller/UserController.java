@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fesa.MedQuery.enums.UserRole;
 import br.edu.fesa.MedQuery.model.Paciente;
+import br.edu.fesa.MedQuery.repositories.GestorRepository;
+import br.edu.fesa.MedQuery.repositories.MedicoRepository;
 import br.edu.fesa.MedQuery.repositories.PacienteRepository;
 import br.edu.fesa.MedQuery.util.PasswordUtil;
 
@@ -17,6 +19,12 @@ public class UserController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private GestorRepository gestorRepository;
+
+    @Autowired
+    private MedicoRepository medicoRepository;
 
 
     @GetMapping("/login")

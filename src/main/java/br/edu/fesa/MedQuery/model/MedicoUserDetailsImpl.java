@@ -1,7 +1,6 @@
 package br.edu.fesa.MedQuery.model;
 
 import java.util.Collection;
-import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;

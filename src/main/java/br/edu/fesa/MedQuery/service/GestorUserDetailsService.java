@@ -13,7 +13,7 @@ import br.edu.fesa.MedQuery.repositories.GestorRepository;
 import br.edu.fesa.MedQuery.repositories.PacienteRepository;
 
 @Service
-public class GestorUserDetailService implements UserDetailsService {
+public class GestorUserDetailsService implements UserDetailsService {
 
     @Autowired
     private GestorRepository gestorRepository;

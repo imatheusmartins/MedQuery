@@ -6,19 +6,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.edu.fesa.MedQuery.model.Paciente;
-import br.edu.fesa.MedQuery.model.PacienteUserDetailsImpl;
-import br.edu.fesa.MedQuery.repositories.PacienteRepository;
+import br.edu.fesa.MedQuery.model.Medico;
+import br.edu.fesa.MedQuery.model.MedicoUserDetailsImpl;
+import br.edu.fesa.MedQuery.repositories.MedicoRepository;
 
 @Service
-public class PacienteUserDetailsService implements UserDetailsService{
+public class MedicoUserDetailsService implements UserDetailsService {
+
     @Autowired
-    private PacienteRepository pacienteRepository;
+    private MedicoRepository medicoRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Paciente paciente = pacienteRepository.findByEmail(username)
+        Medico medico = medicoRepository.findByEmail(username)
         .orElseThrow( () -> new UsernameNotFoundException("Usuário não foi encontrado na base de dados"));
-        return new PacienteUserDetailsImpl(paciente);
+        return new MedicoUserDetailsImpl(medico);
     }
 }
