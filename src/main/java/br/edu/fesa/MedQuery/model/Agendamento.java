@@ -106,16 +106,28 @@ public class Agendamento  {
         return tipoServico;
     }
 
-    public Clinica getCliente() {
+    public Clinica getClinica() {
         return clinica;
+    }
+
+    public void setClinica(Clinica clinica) {
+        this.clinica = clinica;
     }
 
     public Paciente getPaciente() {
         return paciente;
     }
 
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+    
     public Medico getMedico() {
         return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     public Especialidade getEspecialidade() {
