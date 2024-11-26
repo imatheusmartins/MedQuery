@@ -107,6 +107,10 @@ public class Agendamento  {
         return especialidade;
     }
 
+    public void setEspecialidade(Especialidade especialidade) {
+        this.especialidade = especialidade;
+    }
+
     public Status getStatus() {
         return status;
     }

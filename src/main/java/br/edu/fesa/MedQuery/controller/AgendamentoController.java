@@ -14,15 +14,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fesa.MedQuery.model.Especialidade;
+import br.edu.fesa.MedQuery.enums.Intensidade;
 import br.edu.fesa.MedQuery.enums.Status;
 import br.edu.fesa.MedQuery.enums.TipoServico;
 import br.edu.fesa.MedQuery.model.Agendamento;
 import br.edu.fesa.MedQuery.model.Clinica;
 import br.edu.fesa.MedQuery.model.Medico;
+import br.edu.fesa.MedQuery.model.Sintoma;
 import br.edu.fesa.MedQuery.repositories.AgendamentoRepository;
 import br.edu.fesa.MedQuery.repositories.MedicoRepository;
+import br.edu.fesa.MedQuery.repositories.SintomaRepository;
 import br.edu.fesa.MedQuery.service.AgendamentoService;
 import br.edu.fesa.MedQuery.service.MedicoService;
+import br.edu.fesa.MedQuery.util.Autoavaliacao;
 
 @Controller
 @RequestMapping("/agendamento")
@@ -30,15 +34,102 @@ public class AgendamentoController {
 
     private final MedicoRepository medicoRepository;
     private final AgendamentoRepository agendamentoRepository;
+    private final SintomaRepository sintomaRepository;
 
     private final AgendamentoService agendamentoService;
     private MedicoService medicoService;
 
-    public AgendamentoController(MedicoRepository medicoRepository, AgendamentoRepository agendamentoRepository, AgendamentoService agendamentoService, MedicoService medicoService) {
+    public AgendamentoController(MedicoRepository medicoRepository, AgendamentoRepository agendamentoRepository, AgendamentoService agendamentoService, 
+    MedicoService medicoService, SintomaRepository sintomaRepository) {
         this.medicoRepository = medicoRepository;
         this.agendamentoRepository = agendamentoRepository;
         this.agendamentoService = agendamentoService;
         this.medicoService = medicoService;
+        this.sintomaRepository = sintomaRepository;
+    }
+
+    @GetMapping("/agendamento-servico")
+    public ModelAndView criar(Agendamento agendamento){
+        ModelAndView mv = new ModelAndView("agendamento/criar");
+
+        // Especialidade especialidadeSelecionada = new Especialidade("teste");
+
+        // List<Medico> medicos = medicoRepository.findByEspecialidadeId(especialidadeSelecionada.getId());
+
+        // if(medicos == null)
+        //     medicos = new ArrayList<>();
+
+        mv.addObject("tipoServicos", TipoServico.values());
+        mv.addObject("agendamento", agendamento);
+        return mv;
+    }
+
+    @GetMapping("/agendamento-redireciona")
+    public ModelAndView redireciona(Agendamento agendamento){
+        
+        if(agendamento.getTipoServico() == TipoServico.CONSULTA)
+            return getAutoavaliacao(agendamento);
+        else
+            return getExame(agendamento);
+    }
+
+    @GetMapping("/agendamento-exame")
+    public ModelAndView getExame(Agendamento agendamento){
+        ModelAndView mv = new ModelAndView("agendamento/lista-exames");
+        
+        //TEM QUE TA VENDO ISSO AQUI
+        
+        return mv;
+    }
+
+    @GetMapping("/agendamento-autoavaliacao")
+    public ModelAndView getAutoavaliacao(Agendamento agendamento){
+        ModelAndView mv = new ModelAndView("agendamento/autoavaliacao");
+        
+        mv.addObject("sintomas", sintomaRepository.findAll());
+        mv.addObject("intensidades", Intensidade.values());
+        mv.addObject("agendamento", agendamento);
+        return mv;
+    }
+
+    @PostMapping("/autoavaliacao")
+    public ModelAndView autoavaliacao(Agendamento agendamento, Sintoma[] sintomas){
+        
+        agendamento.setEspecialidade(Autoavaliacao.getEspecialidade());
+        
+        return especialidade(agendamento);
+    }
+
+    @GetMapping("/agendamento-especialidade")
+    public ModelAndView especialidade(Agendamento agendamento){
+        ModelAndView mv = new ModelAndView("agendamento/medicos");
+        
+        mv.addObject("medicos", medicoRepository.findByEspecialidadeId(agendamento.getEspecialidade().getId()));
+        mv.addObject("agendamento", agendamento);
+        return mv;
+    }
+
+    @GetMapping("/agendamento-medico")
+    public ModelAndView agendamentoMedico(Agendamento agendamento){
+        ModelAndView mv = new ModelAndView("agendamento/autoavaliacao");
+        
+        mv.addObject("sintomas", sintomaRepository.findAll());
+        mv.addObject("agendamento", agendamento);
+        return mv;
+    }
+
+    @GetMapping("/agendamento-medicos")
+    public List<Medico> filtrarMedicos(Agendamento agendamento,
+            @RequestParam(value = "nome", required = false) String nome,
+            @RequestParam(value = "email", required = false) String email,
+            @RequestParam(value = "clinica", required = false) Clinica clinica,
+            @RequestParam(value = "crm", required = false) String crm,
+            @RequestParam(value = "cidadeNome", required = false) String cidadeNome) {
+            
+            ModelAndView mv = new ModelAndView("agendamento/lista-medicos");
+            var especialidade = agendamento.getEspecialidade();
+
+        return medicoService.filtrarMedicos(nome, email, clinica.getId(), especialidade.getId(), crm, cidadeNome);
     }
 
     @GetMapping("/filtro-agendamento")
@@ -62,11 +153,12 @@ public class AgendamentoController {
             @RequestParam(value = "crm", required = false) String crm,
             @RequestParam(value = "cidadeNome", required = false) String cidadeNome) {
 
+
         return medicoService.filtrarMedicos(nome, email, clinica.getId(), especialidade.getId(), crm, cidadeNome);
     }
 
     @GetMapping
-    public ModelAndView chamadoHome(@RequestParam(defaultValue = "1") int page){
+    public ModelAndView medicoHome(@RequestParam(defaultValue = "1") int page){
         ModelAndView mv = new ModelAndView("home/index");
         // Pageable pageReq = PageRequest.of((page - 1),  2);
         // Page<Agendamento> resultPage = agendamentoRepository.findAll(pageReq);
@@ -76,41 +168,41 @@ public class AgendamentoController {
     }
 
 
-    @GetMapping("/criar")
-    public ModelAndView Criar(Agendamento agendamento){
-        ModelAndView mv = new ModelAndView("agendamento/criar");
+    // @GetMapping("/criar")
+    // public ModelAndView Criar(Agendamento agendamento){
+    //     ModelAndView mv = new ModelAndView("agendamento/criar");
 
-        Especialidade especialidadeSelecionada = new Especialidade("teste");
+    //     Especialidade especialidadeSelecionada = new Especialidade("teste");
 
-        List<Medico> medicos = medicoRepository.findByEspecialidadeId(especialidadeSelecionada.getId());
+    //     List<Medico> medicos = medicoRepository.findByEspecialidadeId(especialidadeSelecionada.getId());
 
-        if(medicos == null)
-            medicos = new ArrayList<>();
+    //     if(medicos == null)
+    //         medicos = new ArrayList<>();
 
-        mv.addObject("medicos", medicos);
-        mv.addObject("agendamento", agendamento);
-        return mv;
-    }
+    //     mv.addObject("medicos", medicos);
+    //     mv.addObject("agendamento", agendamento);
+    //     return mv;
+    // }
 
     @PostMapping("/criar-agendamento")
     public ModelAndView NovoAgendamento(Agendamento agendamento){
         agendamento.setStatus(Status.ABERTO);
         agendamentoRepository.save(agendamento);
-        return chamadoHome(1); 
+        return medicoHome(1); 
     }
 
     @PostMapping("/cancelar-agendamento")
     public ModelAndView CancelaAgendamento(Agendamento agendamento){
         agendamento.setStatus(Status.CANCELADO);
         agendamentoRepository.save(agendamento);
-        return chamadoHome(1); 
+        return medicoHome(1); 
     }
 
     @PostMapping("/finalizar-agendamento")
     public ModelAndView FinalizarAgendamento(Agendamento agendamento){
         agendamento.setStatus(Status.FINALIZADO);
         agendamentoRepository.save(agendamento);
-        return chamadoHome(1); 
+        return medicoHome(1); 
     }
 
 
