@@ -35,6 +35,13 @@ public class Especialidade {
         this.nome = nome;
     }
 
+    public Especialidade(Integer id, String nome, Set<Medico> medicos, List<Agendamento> agendamentos) {
+        this.id = id;
+        this.nome = nome;
+        this.medicos = medicos;
+        this.agendamentos = agendamentos;
+    }
+
     public Integer getId() {
         return id;
     }

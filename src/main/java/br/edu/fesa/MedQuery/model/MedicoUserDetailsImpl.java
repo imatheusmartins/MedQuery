@@ -30,7 +30,7 @@ private Medico medico;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        UserRole userRole = medico.getPerfil();
+        UserRole userRole = medico.getUserRole();
         if(userRole == UserRole.ADMIN){
             userRole = UserRole.ADMIN;
         }else{

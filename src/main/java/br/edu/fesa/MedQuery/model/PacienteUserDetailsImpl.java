@@ -31,7 +31,7 @@ private Paciente paciente;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        UserRole userRole = paciente.getPerfil();
+        UserRole userRole = paciente.getUserRole();
         if(userRole == UserRole.ADMIN){
             userRole = UserRole.ADMIN;
         }else{

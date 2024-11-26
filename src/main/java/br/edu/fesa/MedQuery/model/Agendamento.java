@@ -41,6 +41,20 @@ public class Agendamento  {
     @JoinColumn(name = "especialidade_id_fk")
     private Especialidade especialidade;
 
+    // public Agendamento(Integer id, LocalDate dataCriacao, LocalDate dataAgendada, String laudo, TipoServico tipoServico,
+    //         Status status, Clinica clinica, Paciente paciente, Medico medico, Especialidade especialidade) {
+    //     this.id = id;
+    //     this.dataCriacao = dataCriacao;
+    //     this.dataAgendada = dataAgendada;
+    //     this.laudo = laudo;
+    //     this.tipoServico = tipoServico;
+    //     this.status = status;
+    //     this.clinica = clinica;
+    //     this.paciente = paciente;
+    //     this.medico = medico;
+    //     this.especialidade = especialidade;
+    // }
+
     public Agendamento(TipoServico tipoServico){
         this.tipoServico = tipoServico;
     };

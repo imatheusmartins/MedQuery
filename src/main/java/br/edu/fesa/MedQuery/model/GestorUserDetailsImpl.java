@@ -30,7 +30,7 @@ public class GestorUserDetailsImpl implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        UserRole userRole = gestor.getPerfil();
+        UserRole userRole = gestor.getUserRole();
         if(userRole == UserRole.ADMIN){
             userRole = UserRole.ADMIN;
         }else{

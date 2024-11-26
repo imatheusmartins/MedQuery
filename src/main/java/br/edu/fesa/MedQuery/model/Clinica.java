@@ -30,6 +30,17 @@ public class Clinica {
     // @OneToMany(mappedBy = "matriz")
     // private Set<Clinica> filiais = new HashSet<>();
 
+    // public Clinica(Integer id, String nome, String imagem, Endereco endereco, Gestor gestor, List<Medico> medicos,
+    //         List<Agendamento> agendamentos) {
+    //     this.id = id;
+    //     this.nome = nome;
+    //     this.imagem = imagem;
+    //     this.endereco = endereco;
+    //     this.gestor = gestor;
+    //     this.medicos = medicos;
+    //     this.agendamentos = agendamentos;
+    // }
+
     @OneToOne(mappedBy = "clinica")
     private Gestor gestor;
 
