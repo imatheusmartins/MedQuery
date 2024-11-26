@@ -2,7 +2,10 @@ package br.edu.fesa.MedQuery.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
+import br.edu.fesa.MedQuery.enums.Sintoma;
 import br.edu.fesa.MedQuery.enums.Status;
 import br.edu.fesa.MedQuery.enums.TipoServico;
 import jakarta.persistence.Entity;
@@ -23,6 +26,7 @@ public class Agendamento  {
     private String laudo;
     private TipoServico tipoServico;
     private Status status;
+    private Set<Sintoma> sintomas = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "clinica_id_fk")
@@ -53,6 +57,13 @@ public class Agendamento  {
     //     this.medico = medico;
     //     this.especialidade = especialidade;
     // }
+    public Set<Sintoma> getSintomas() {
+        return sintomas;
+    }
+
+    public void setSintomas(Set<Sintoma> sintomas) {
+        this.sintomas = sintomas;
+    }
 
     public Agendamento(TipoServico tipoServico){
         this.tipoServico = tipoServico;

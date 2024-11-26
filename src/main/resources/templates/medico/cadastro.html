@@ -23,17 +23,15 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Nome</label>
                                                 <div class="col-sm-9">
-                                                    <input th:field="*{nome}" type="text" class="form-control" />
+                                                    <input th:field="*{nome}" type="text" class="form-control" placeholder="Nome Completo" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Email</label>
                                                 <div class="col-sm-9">
-                                                    <input th:field="*{email}" type="text" class="form-control" />
+                                                    <input th:field="*{email}" type="text" class="form-control" placeholder="E-mail" />
                                                 </div>
                                             </div>
                                         </div>
@@ -41,19 +39,17 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Senha</label>
                                                 <div class="col-sm-9">
-                                                    <input th:field="*{senha}" type="text" class="form-control" />
+                                                    <input th:field="*{senha}" type="text" class="form-control" placeholder="Senha"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Papel</label>
                                                 <div class="col-sm-9">
                                                     <select id="" class="form-control" th:field="*{userRole}">
                                                         <option value="" disabled selected>Selecione seu papel</option>
-                                                        <option th:each="userRole : ${userRoles}" th:text="${userRole}"  th:value="${userRole}">
+                                                        <option th:each="userRole : ${userRoles}" th:text="${userRole.userRole}"  th:value="${userRole}">
                                                         </option>
                                                     </select>
                                                 </div>
@@ -63,32 +59,33 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">CRM</label>
                                                 <div class="col-sm-9">
-                                                    <input th:field="*{crm}" type="text" class="form-control" />
+                                                    <input th:field="*{crm}" type="text" class="form-control" placeholder="CRM" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label"></label>
-                                                <div class="col-sm-9">
+                                            <div class="form-group row align-items-center">
+                                                <label for="ativoCheckbox" class="col-sm-2 col-form-label">Ativo?</label>
+                                                <div class="col-sm-1 ">
+                                                    <!-- Ajustando o layout com form-check -->
                                                     <div class="form-check">
-                                                        <!-- Usando th:checked para verificar o estado e th:disabled para desabilitar -->
-                                                        <input th:field="*{ativo}" type="checkbox" class="form-check-input" id="ativoCheckbox" checked >
-                                                        <label class="form-check-label" for="ativoCheckbox">Ativo</label>
+                                                        <input th:field="*{ativo}" type="checkbox" class="form-check-input" id="ativoCheckbox">
+                                                        <label class="form-check-label" for="ativoCheckbox"></label>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>                                   
+                                        </div>
+                                        
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <label class="ml-1 form-group row mb-1">Especialidades</label>
+                                            <label class="ml-1 form-group row text-muted small mb-1 mt-1">Segure o botão Ctrl e clique nas especialidades desejadas</label>
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Especialidades</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" th:field="*{especialidades}" multiple>
-                                                        <option th:each="especialidade : ${especialidadesOption}" th:value="${especialidade}" th:text="${especialidade}"></option>
+                                                        <option th:each="especialidade : ${especialidadesOption}" th:value="${especialidade}" th:text="${especialidade.especialidade}"></option>
                                                     </select>
                                                 </div>
                                             </div>

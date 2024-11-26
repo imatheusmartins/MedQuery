@@ -72,6 +72,17 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Clínica</label>
+                                                <div class="col-sm-9">
+                                                    <select id="clinica" class="form-control" th:field="*{clinica.id}">
+                                                        <option value="" disabled selected>Selecione uma clínica</option>
+                                                        <option th:each="clinica : ${clinicas}" th:value="${clinica.id}" th:text="${clinica.nome}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>                                   
                                     </div>
                                     <div class="row">

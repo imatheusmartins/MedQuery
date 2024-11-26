@@ -81,6 +81,7 @@ public class MedicoController {
         ModelAndView mv =  new ModelAndView("medico/editar");
         mv.addObject("userRoles", UserRole.values());
         mv.addObject("medico", medicoRepository.findById(id));
+        mv.addObject("especialidadesOption", EspecialidadeEnum.values());
         return mv;
     }
 

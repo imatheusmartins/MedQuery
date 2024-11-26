@@ -20,16 +20,12 @@ import br.edu.fesa.MedQuery.repositories.PacienteRepository;
 import br.edu.fesa.MedQuery.util.PasswordUtil;
 
 @Controller
-@RequestMapping("/autoavaliacao")
+@RequestMapping("")
 public class AutoavaliacaoController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    @GetMapping
-    public ModelAndView autoavaliacao(){
-        ModelAndView mv =  new ModelAndView("agendamento/autoavaliacao");
-        return mv;
-    }
+    
 
 }

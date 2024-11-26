@@ -1,5 +1,7 @@
 package br.edu.fesa.MedQuery.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fesa.MedQuery.enums.UserRole;
 import br.edu.fesa.MedQuery.model.Agendamento;
+import br.edu.fesa.MedQuery.model.Clinica;
 import br.edu.fesa.MedQuery.model.Gestor;
 import br.edu.fesa.MedQuery.repositories.AgendamentoRepository;
 import br.edu.fesa.MedQuery.repositories.GestorRepository;
+import br.edu.fesa.MedQuery.service.ClinicaService;
 import br.edu.fesa.MedQuery.util.PasswordUtil;
 
 @Controller
@@ -30,13 +34,18 @@ public class GestorController {
     @Autowired
     private AgendamentoRepository agendamentoRepository;
 
+    @Autowired
+    private ClinicaService clinicaService;
+
 
     //Método que incializa o html
     @GetMapping("/cadastro")
     public ModelAndView getCadastroGestor(Gestor gestor){
         ModelAndView mv =  new ModelAndView("gestor/cadastro");
         UserRole[] userRoleGestor = {UserRole.GESTOR};
+        List<Clinica> clinicas = clinicaService.findAll();
         mv.addObject("userRoles", userRoleGestor);
+        mv.addObject("clinicas", clinicas); 
         mv.addObject("gestor", gestor);
 
         return mv;

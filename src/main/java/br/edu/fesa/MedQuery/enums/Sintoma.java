@@ -14,15 +14,17 @@ public enum Sintoma {
     
     private String sintoma;
 
+    public String getSintoma() {
+        return sintoma;
+    }
+
+    public void setSintoma(String sintoma) {
+        this.sintoma = sintoma;
+    }
+
     private Sintoma(String sintoma){
         this.sintoma = sintoma;
     }
 
-    public String getEspecialidade() {
-        return sintoma;
-    }
-
-    public void setEspecialidade(String sintoma) {
-        this.sintoma = sintoma;
-    }
+    
 }

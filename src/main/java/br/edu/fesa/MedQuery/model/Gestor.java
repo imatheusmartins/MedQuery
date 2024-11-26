@@ -25,4 +25,12 @@ public class Gestor extends User {
     public Gestor() {
     }
 
+    public Clinica getClinica() {
+        return clinica;
+    }
+
+    public void setClinica(Clinica clinica) {
+        this.clinica = clinica;
+    }
+
 }

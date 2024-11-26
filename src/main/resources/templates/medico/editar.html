@@ -85,6 +85,16 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Especialidades</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" th:field="*{especialidades}" multiple>
+                                            <option th:each="especialidade : ${especialidadesOption}" th:value="${especialidade}" th:text="${especialidade.especialidade}"></option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>                                   
                         </div>
                         <div class="row">

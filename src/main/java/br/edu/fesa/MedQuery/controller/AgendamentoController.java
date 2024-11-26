@@ -22,38 +22,68 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.fesa.MedQuery.model.Especialidade;
 import br.edu.fesa.MedQuery.enums.EspecialidadeEnum;
+import br.edu.fesa.MedQuery.enums.Sintoma;
 import br.edu.fesa.MedQuery.enums.Status;
 import br.edu.fesa.MedQuery.enums.TipoServico;
 import br.edu.fesa.MedQuery.enums.UserRole;
 import br.edu.fesa.MedQuery.model.Agendamento;
 import br.edu.fesa.MedQuery.model.Clinica;
 import br.edu.fesa.MedQuery.model.Medico;
-import br.edu.fesa.MedQuery.model.Sintoma;
 import br.edu.fesa.MedQuery.repositories.AgendamentoRepository;
+import br.edu.fesa.MedQuery.repositories.ClinicaRepository;
 import br.edu.fesa.MedQuery.repositories.MedicoRepository;
 import br.edu.fesa.MedQuery.repositories.SintomaRepository;
 import br.edu.fesa.MedQuery.service.AgendamentoService;
 import br.edu.fesa.MedQuery.service.MedicoService;
 import br.edu.fesa.MedQuery.util.Autoavaliacao;
+import br.edu.fesa.MedQuery.util.PasswordUtil;
 
 @Controller
 @RequestMapping("/agendamento")
 public class AgendamentoController {
 
-    private final MedicoRepository medicoRepository;
-    private final AgendamentoRepository agendamentoRepository;
-    private final SintomaRepository sintomaRepository;
+    @Autowired
+    private AgendamentoRepository agendamentoRepository;
 
-    private final AgendamentoService agendamentoService;
-    private final MedicoService medicoService;
+    @Autowired
+    private ClinicaRepository clinicaRepository;
 
-    public AgendamentoController(MedicoRepository medicoRepository, AgendamentoRepository agendamentoRepository, AgendamentoService agendamentoService, 
-    MedicoService medicoService, SintomaRepository sintomaRepository) {
-        this.medicoRepository = medicoRepository;
-        this.agendamentoRepository = agendamentoRepository;
-        this.agendamentoService = agendamentoService;
-        this.medicoService = medicoService;
-        this.sintomaRepository = sintomaRepository;
+    // @Autowired
+    // private final MedicoRepository medicoRepository;
+    
+    // private final SintomaRepository sintomaRepository;
+
+    // private final AgendamentoService agendamentoService;
+    // private final MedicoService medicoService;
+
+    // public AgendamentoController(MedicoRepository medicoRepository, AgendamentoRepository agendamentoRepository, AgendamentoService agendamentoService, 
+    // MedicoService medicoService, SintomaRepository sintomaRepository) {
+    //     this.medicoRepository = medicoRepository;
+    //     this.agendamentoRepository = agendamentoRepository;
+    //     this.agendamentoService = agendamentoService;
+    //     this.medicoService = medicoService;
+    //     // this.sintomaRepository = sintomaRepository;
+    // }
+
+    @GetMapping("/autoavaliacao")
+    public ModelAndView autoavaliacao(Agendamento agendamento){
+        ModelAndView mv =  new ModelAndView("agendamento/autoavaliacao");
+
+        mv.addObject("sintomasEnum", Sintoma.values());
+        mv.addObject("agendamento", agendamento);
+
+        return mv;
+    }
+
+    @PostMapping("/envia-sintomas")
+    public ModelAndView postCadastroMedico(@ModelAttribute Agendamento agendamento){
+        ModelAndView mv =  new ModelAndView("agendamento/lista-clinicas");
+
+        mv.addObject("agendamento", agendamento);
+
+        mv.addObject("clinicas", clinicaRepository.findAll());
+        return mv;
+
     }
 
     //Método que incializa o html
@@ -81,14 +111,14 @@ public class AgendamentoController {
         return mv;
     }
 
-    @GetMapping("/agendamento-redireciona")
-    public ModelAndView redireciona(Agendamento agendamento){
+    // @GetMapping("/agendamento-redireciona")
+    // public ModelAndView redireciona(Agendamento agendamento){
         
-        if(agendamento.getTipoServico() == TipoServico.CONSULTA)
-            return getAutoavaliacao(agendamento);
-        else
-            return getExame(agendamento);
-    }
+    //     if(agendamento.getTipoServico() == TipoServico.CONSULTA)
+    //         return getAutoavaliacao(agendamento);
+    //     else
+    //         return getExame(agendamento);
+    // }
 
     @GetMapping("/agendamento-exame")
     public ModelAndView getExame(Agendamento agendamento){
@@ -99,14 +129,14 @@ public class AgendamentoController {
         return mv;
     }
 
-    @GetMapping("/agendamento-autoavaliacao")
-    public ModelAndView getAutoavaliacao(Agendamento agendamento){
-        ModelAndView mv = new ModelAndView("agendamento/autoavaliacao");
+    // @GetMapping("/agendamento-autoavaliacao")
+    // public ModelAndView getAutoavaliacao(Agendamento agendamento){
+    //     ModelAndView mv = new ModelAndView("agendamento/autoavaliacao");
         
-        mv.addObject("sintomas", sintomaRepository.findAll());
-        mv.addObject("agendamento", agendamento);
-        return mv;
-    }
+    //     mv.addObject("sintomas", sintomaRepository.findAll());
+    //     mv.addObject("agendamento", agendamento);
+    //     return mv;
+    // }
 
     @PostMapping("/autoavaliacao")
     public ModelAndView autoavaliacao(Agendamento agendamento, Sintoma[] sintomas){
@@ -133,42 +163,42 @@ public class AgendamentoController {
         return mv;
     }
 
-    @GetMapping("/agendamento-horario")
-    public String horario(@ModelAttribute Agendamento agendamento, RedirectAttributes redirectAttributes, Model model) {
-        LocalDateTime agora = LocalDateTime.now();
-        LocalDateTime dataAgendada = agendamento.getDataAgendada();
+    // @GetMapping("/agendamento-horario")
+    // public String horario(@ModelAttribute Agendamento agendamento, RedirectAttributes redirectAttributes, Model model) {
+    //     LocalDateTime agora = LocalDateTime.now();
+    //     LocalDateTime dataAgendada = agendamento.getDataAgendada();
 
-        // Verifica se a data agendada é a partir do dia seguinte e no máximo 30 dias após o dia atual
-        if (dataAgendada == null || dataAgendada.toLocalDate().isBefore(agora.toLocalDate().plusDays(1)) || 
-            dataAgendada.toLocalDate().isAfter(agora.toLocalDate().plusDays(30))) {
-            model.addAttribute("error", "A data deve ser a partir de amanhã e no máximo 30 dias após hoje.");
-            return "agendamento/medico";
-        }
+    //     // Verifica se a data agendada é a partir do dia seguinte e no máximo 30 dias após o dia atual
+    //     if (dataAgendada == null || dataAgendada.toLocalDate().isBefore(agora.toLocalDate().plusDays(1)) || 
+    //         dataAgendada.toLocalDate().isAfter(agora.toLocalDate().plusDays(30))) {
+    //         model.addAttribute("error", "A data deve ser a partir de amanhã e no máximo 30 dias após hoje.");
+    //         return "agendamento/medico";
+    //     }
 
-    // Verifica se o horário está entre 07:00 e 17:30
-    LocalTime horarioAgendado = dataAgendada.toLocalTime();
-    LocalTime inicioHorario = LocalTime.of(7, 0);
-    LocalTime fimHorario = LocalTime.of(17, 30);
-    if (horarioAgendado.isBefore(inicioHorario) || horarioAgendado.isAfter(fimHorario)) {
-        model.addAttribute("error", "O horário deve ser entre 07:00 e 17:30.");
-        return "agendamento/medico";
-    }
+    // // Verifica se o horário está entre 07:00 e 17:30
+    // LocalTime horarioAgendado = dataAgendada.toLocalTime();
+    // LocalTime inicioHorario = LocalTime.of(7, 0);
+    // LocalTime fimHorario = LocalTime.of(17, 30);
+    // if (horarioAgendado.isBefore(inicioHorario) || horarioAgendado.isAfter(fimHorario)) {
+    //     model.addAttribute("error", "O horário deve ser entre 07:00 e 17:30.");
+    //     return "agendamento/medico";
+    // }
 
-    // Verifica se o médico possui algum agendamento com menos de 15 minutos de diferença
-    List<Agendamento> agendamentosMedico = medicoService.buscarAgendamentosPorMedicoEData(agendamento.getMedico(), dataAgendada);
-    for (Agendamento ag : agendamentosMedico) {
-        LocalDateTime horarioExistente = ag.getDataAgendada();
-        if (Math.abs(Duration.between(horarioExistente, dataAgendada).toMinutes()) < 15) {
-            model.addAttribute("error", "O médico já possui um agendamento próximo ao horário desejado.");
-            return "agendamento/medico";
-        }
-    }
+    // // Verifica se o médico possui algum agendamento com menos de 15 minutos de diferença
+    // List<Agendamento> agendamentosMedico = medicoService.buscarAgendamentosPorMedicoEData(agendamento.getMedico(), dataAgendada);
+    // for (Agendamento ag : agendamentosMedico) {
+    //     LocalDateTime horarioExistente = ag.getDataAgendada();
+    //     if (Math.abs(Duration.between(horarioExistente, dataAgendada).toMinutes()) < 15) {
+    //         model.addAttribute("error", "O médico já possui um agendamento próximo ao horário desejado.");
+    //         return "agendamento/medico";
+    //     }
+    // }
 
-    // Se todas as verificações passarem, salve o agendamento e redirecione
-        agendamentoRepository.save(agendamento);
-        redirectAttributes.addFlashAttribute("successMessage", "Agendamento realizado com sucesso!");
-        return "redirect:/paciente/lista-agendamentos";
-    }
+    // // Se todas as verificações passarem, salve o agendamento e redirecione
+    //     agendamentoRepository.save(agendamento);
+    //     redirectAttributes.addFlashAttribute("successMessage", "Agendamento realizado com sucesso!");
+    //     return "redirect:/paciente/lista-agendamentos";
+    // }
 
     // @GetMapping("/agendamento-medicos")
     // public List<Medico> filtrarMedicos(Agendamento agendamento,
@@ -209,15 +239,15 @@ public class AgendamentoController {
     //     return medicoService.filtrarMedicos(nome, email, clinica.getId(), especialidade.getId(), crm, cidadeNome);
     // }
 
-    @GetMapping
-    public ModelAndView medicoHome(@RequestParam(defaultValue = "1") int page){
-        ModelAndView mv = new ModelAndView("home/index");
-        // Pageable pageReq = PageRequest.of((page - 1),  2);
-        // Page<Agendamento> resultPage = agendamentoRepository.findAll(pageReq);
-        List<Agendamento> resultPage = agendamentoRepository.findAll();
-        mv.addObject("agendamentoList", resultPage);
-        return mv;
-    }
+    // @GetMapping
+    // public ModelAndView medicoHome(@RequestParam(defaultValue = "1") int page){
+    //     ModelAndView mv = new ModelAndView("home/index");
+    //     // Pageable pageReq = PageRequest.of((page - 1),  2);
+    //     // Page<Agendamento> resultPage = agendamentoRepository.findAll(pageReq);
+    //     List<Agendamento> resultPage = agendamentoRepository.findAll();
+    //     mv.addObject("agendamentoList", resultPage);
+    //     return mv;
+    // }
 
 
     // @GetMapping("/criar")
@@ -236,26 +266,26 @@ public class AgendamentoController {
     //     return mv;
     // }
 
-    @PostMapping("/criar-agendamento")
-    public ModelAndView NovoAgendamento(Agendamento agendamento){
-        agendamento.setStatus(Status.ABERTO);
-        agendamentoRepository.save(agendamento);
-        return medicoHome(1); 
-    }
+    // @PostMapping("/criar-agendamento")
+    // public ModelAndView NovoAgendamento(Agendamento agendamento){
+    //     agendamento.setStatus(Status.ABERTO);
+    //     agendamentoRepository.save(agendamento);
+    //     return medicoHome(1); 
+    // }
 
-    @PostMapping("/cancelar-agendamento")
-    public ModelAndView CancelaAgendamento(Agendamento agendamento){
-        agendamento.setStatus(Status.CANCELADO);
-        agendamentoRepository.save(agendamento);
-        return medicoHome(1); 
-    }
+    // @PostMapping("/cancelar-agendamento")
+    // public ModelAndView CancelaAgendamento(Agendamento agendamento){
+    //     agendamento.setStatus(Status.CANCELADO);
+    //     agendamentoRepository.save(agendamento);
+    //     return medicoHome(1); 
+    // }
 
-    @PostMapping("/finalizar-agendamento")
-    public ModelAndView FinalizarAgendamento(Agendamento agendamento){
-        agendamento.setStatus(Status.FINALIZADO);
-        agendamentoRepository.save(agendamento);
-        return medicoHome(1); 
-    }
+    // @PostMapping("/finalizar-agendamento")
+    // public ModelAndView FinalizarAgendamento(Agendamento agendamento){
+    //     agendamento.setStatus(Status.FINALIZADO);
+    //     agendamentoRepository.save(agendamento);
+    //     return medicoHome(1); 
+    // }
 
     // @GetMapping("/export")
     // public void exportCsv(HttpServletResponse response) throws IOException {
