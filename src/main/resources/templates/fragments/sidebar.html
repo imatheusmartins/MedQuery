@@ -24,17 +24,17 @@
       
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#medicos">
+        <a class="nav-link" data-toggle="collapse" data-target="#medicos">
           <i class="mdi mdi-account-multiple"></i>
           <span class="menu-title">&nbsp;&nbsp; MÉDICOS &nbsp;&nbsp;</span>
           <i class="mdi mdi-chevron-down"></i>
         </a>
         <div class="collapse" id="medicos">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"><a th:href="@{medico/cadastro}" class="nav-link">Novo Medico</a></li>
-            <li class="nav-item"><a th:href="@{medico/list-medicos}" class="nav-link">Lista de Médicos</a></li>
-            </ul>
-          </div>
+            <li class="nav-item"><a th:href="@{/medico/cadastro}" class="nav-link">Novo Médico</a></li>
+            <li class="nav-item"><a th:href="@{/medico/list-medicos}" class="nav-link">Lista de Médicos</a></li>
+          </ul>
+        </div>
       </li>
 
       <li class="nav-item">

@@ -19,7 +19,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 >Preencha os dados do médico</h3>
-                                <form class="form-sample" th:action="@{/medico/cadastro-medico}" method="post" th:object="${medico}">
+                                <form class="form-sample" th:action="@{/medico/cadastro-medico}" method="post" th:object="${medico}" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
@@ -51,9 +51,9 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Papel</label>
                                                 <div class="col-sm-9">
-                                                    <select name="Selecione seu Perfil" id="" class="form-control">
+                                                    <select id="" class="form-control" th:field="*{userRole}">
                                                         <option value="" disabled selected>Selecione seu papel</option>
-                                                        <option th:each="userRole : ${userRoles}" th:text="${userRole}" th:value="${userRole}">
+                                                        <option th:each="userRole : ${userRoles}" th:text="${userRole}"  th:value="${userRole}">
                                                         </option>
                                                     </select>
                                                 </div>
@@ -69,6 +69,21 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label"></label>
+                                                <div class="col-sm-9">
+                                                    <div class="form-check">
+                                                        <!-- Usando th:checked para verificar o estado e th:disabled para desabilitar -->
+                                                        <input th:field="*{ativo}" type="checkbox" class="form-check-input" id="ativoCheckbox" checked >
+                                                        <label class="form-check-label" for="ativoCheckbox">Ativo</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                   
+                                    </div>
+                                    <div class="row">
+                                        
                                     </div>
                                     <div class="mt-3">
                                         <button type="submit"
@@ -101,15 +116,15 @@
     <!-- container-scroller ends-->
 
     <!-- plugins:js -->
-    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <script src="../vendors/js/vendor.bundle.base.js"></script>
     <!-- End plugin js for this page -->
     <!-- inject:js -->
-    <script src="js/off-canvas.js"></script>
-    <script src="js/template.js"></script>
-    <script src="js/hoverable-collapse.js"></script>
+    <script src="../js/off-canvas.js"></script>
+    <script src="../js/template.js"></script>
+    <script src="../js/hoverable-collapse.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <script src="js/dashboard.js"></script>
+    <script src="../js/dashboard.js"></script>
     <!-- End custom js for this page-->
 </body>
 

@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import br.edu.fesa.MedQuery.enums.UserRole;
 import br.edu.fesa.MedQuery.model.Agendamento;
 import br.edu.fesa.MedQuery.model.Medico;
 import br.edu.fesa.MedQuery.model.Paciente;
+import br.edu.fesa.MedQuery.model.User;
 import br.edu.fesa.MedQuery.repositories.AgendamentoRepository;
 import br.edu.fesa.MedQuery.repositories.MedicoRepository;
 import br.edu.fesa.MedQuery.util.PasswordUtil;
@@ -35,7 +37,8 @@ public class MedicoController {
     @GetMapping("/cadastro")
     public ModelAndView getCadastroMedico(Medico medico){
         ModelAndView mv =  new ModelAndView("medico/cadastro");
-        mv.addObject("userRoles", UserRole.values());
+        UserRole[] userRoleMedico = {UserRole.MEDICO};
+        mv.addObject("userRoles", userRoleMedico);
         mv.addObject("medico", medico);
 
         return mv;
@@ -43,7 +46,7 @@ public class MedicoController {
 
     //Método que recebe o dado enviado no form do html 
     @PostMapping("/cadastro-medico")
-    public String postCadastroMedico(Medico medico){
+    public String postCadastroMedico(@ModelAttribute Medico medico){
         ModelAndView mv =  new ModelAndView("medico/cadastro");
 
         String hashSenha = PasswordUtil.encoder(medico.getSenha());
@@ -69,32 +72,35 @@ public class MedicoController {
         return mv;
     }
 
+    @GetMapping("/editar/{id}")
+    public ModelAndView editar(@PathVariable("id") Integer id){
+        ModelAndView mv =  new ModelAndView("medico/editar");
+        mv.addObject("userRoles", UserRole.values());
+        mv.addObject("medico", medicoRepository.findById(id));
+        return mv;
+    }
+
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable("id") Integer id){
+        medicoRepository.deleteById(id);
+        return "redirect:/medico/list-medicos";
+    }
+    
+    
+    @PostMapping("/editar-medico")
+    public String editar(Medico medico){
+        ModelAndView mv =  new ModelAndView("medico/editar");
+        medicoRepository.save(medico);
+        return "redirect:/medico/list-medicos";
+    }
+    
+    //Não utilizado
     @GetMapping("/home-medico")
     public ModelAndView home(@RequestParam(defaultValue = "1") int page){
         ModelAndView mv =  new ModelAndView("home/index");
         Pageable pageReq = PageRequest.of((page - 1),  2);
         Page<Agendamento> resultPage = agendamentoRepository.findAll(pageReq);
         mv.addObject("agendamentosList", resultPage);
-        return mv;
-    }
-
-    @GetMapping("/editar/{id}")
-    public ModelAndView editar(@PathVariable("id") Integer id){
-        ModelAndView mv =  new ModelAndView("medico/editar");
-        mv.addObject("medico", medicoRepository.findById(id));
-        return mv;
-    }
-
-    @PostMapping("/editar-medico")
-    public ModelAndView editar(Medico medico){
-        ModelAndView mv =  new ModelAndView("medico/editar");
-        medicoRepository.save(medico);
-        return medicosList();
-    }
-
-    @GetMapping("/login")
-    public ModelAndView home(){
-        ModelAndView mv =  new ModelAndView("login/login");
         return mv;
     }
 }
