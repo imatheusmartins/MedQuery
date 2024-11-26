@@ -42,6 +42,7 @@
                                                 <th scope="col">Nome</th>
                                                 <th scope="col">E-mail</th>
                                                 <th scope="col">CRM</th>
+                                                <th scope="col">Especialidades</th>
                                                 <th scope="col">Ações</th>
                                             </tr>
                                         </thead>
@@ -51,6 +52,11 @@
                                                 <td th:text="${meds.nome}"></td>
                                                 <td th:text="${meds.email}"></td>
                                                 <td th:text="${meds.crm}"></td>
+                                                <td>
+                                                    <ul>
+                                                        <li th:each="especialidade : ${meds.especialidades}" th:text="${especialidade.especialidade}"></li>
+                                                    </ul>
+                                                </td>
                                                 <td>
                                                     <a class="btn btn-warning"
                                                         th:href="@{/medico/editar/{id}(id=${meds.id})}">EDITAR</a>

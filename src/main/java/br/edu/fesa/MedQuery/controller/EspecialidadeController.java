@@ -19,71 +19,71 @@ public class EspecialidadeController {
 
     private EspecialidadeRepository especialidadeRepository;
 
-    public EspecialidadeController(EspecialidadeRepository especialidadeRepository){
-        this.especialidadeRepository = especialidadeRepository;
-    }
+    // public EspecialidadeController(EspecialidadeRepository especialidadeRepository){
+    //     this.especialidadeRepository = especialidadeRepository;
+    // }
 
-    // @GetMapping
-    // public ModelAndView clinicaHome(@RequestParam(defaultValue = "1") int page){
-    //     ModelAndView mv = new ModelAndView("home/index");
-    //     Page pageReq = PageRequest.of((page - 1),  2);
-    //     Page<Agendamento> resultPage = chamadoRepository.findAll(pageReq);
-    //     mv.addObject("chamadosList", resultPage);
+    // // @GetMapping
+    // // public ModelAndView clinicaHome(@RequestParam(defaultValue = "1") int page){
+    // //     ModelAndView mv = new ModelAndView("home/index");
+    // //     Page pageReq = PageRequest.of((page - 1),  2);
+    // //     Page<Agendamento> resultPage = chamadoRepository.findAll(pageReq);
+    // //     mv.addObject("chamadosList", resultPage);
+    // //     return mv;
+    // // }
+
+    // @GetMapping("/home-especialidade")
+    // public ModelAndView home(@RequestParam(defaultValue = "1") int page){
+    //     ModelAndView mv =  new ModelAndView("home/index");
+    //     Pageable pageReq = PageRequest.of((page - 1),  2);
+    //     Page<Especialidade> resultPage = especialidadeRepository.findAllEspecialidades(pageReq);
+    //     mv.addObject("especialidadesList", resultPage);
     //     return mv;
     // }
 
-    @GetMapping("/home-especialidade")
-    public ModelAndView home(@RequestParam(defaultValue = "1") int page){
-        ModelAndView mv =  new ModelAndView("home/index");
-        Pageable pageReq = PageRequest.of((page - 1),  2);
-        Page<Especialidade> resultPage = especialidadeRepository.findAllEspecialidades(pageReq);
-        mv.addObject("especialidadesList", resultPage);
-        return mv;
-    }
+    // @GetMapping("/cadastro")
+    // public ModelAndView getCadastro(Especialidade especialidade){
+    //     ModelAndView mv = new ModelAndView("especialidade/cadastro");
+    //     mv.addObject("especialidade", especialidade);
+    //     UserRole[] profiles = {UserRole.ADMIN, UserRole.GESTOR};
+    //     mv.addObject("userRoles", profiles);
+    //     return mv;
+    // }
 
-    @GetMapping("/cadastro")
-    public ModelAndView getCadastro(Especialidade especialidade){
-        ModelAndView mv = new ModelAndView("especialidade/cadastro");
-        mv.addObject("especialidade", especialidade);
-        UserRole[] profiles = {UserRole.ADMIN, UserRole.GESTOR};
-        mv.addObject("userRoles", profiles);
-        return mv;
-    }
+    // @PostMapping("/cadastro-especialidade")
+    // public ModelAndView cadastro(@ModelAttribute Especialidade especialidade){
+    //    ModelAndView mv =  new ModelAndView("especialidade/cadastro");
+    //    mv.addObject("especialidade", especialidade);
 
-    @PostMapping("/cadastro-especialidade")
-    public ModelAndView cadastro(@ModelAttribute Especialidade especialidade){
-       ModelAndView mv =  new ModelAndView("especialidade/cadastro");
-       mv.addObject("especialidade", especialidade);
+    //    try {
+    //     especialidadeRepository.save(especialidade);
+    //     System.out.println("Salvo com sucesso: " + especialidade.getNome());
+    //     return home(1);
+    //    } catch (Exception e) {
+    //         mv.addObject("msgErro", e.getMessage());
+    //         System.out.println("Erro ao salvar " + e.getMessage());
+    //         return mv;
+    //    }
+    // }
 
-       try {
-        especialidadeRepository.save(especialidade);
-        System.out.println("Salvo com sucesso: " + especialidade.getNome());
-        return home(1);
-       } catch (Exception e) {
-            mv.addObject("msgErro", e.getMessage());
-            System.out.println("Erro ao salvar " + e.getMessage());
-            return mv;
-       }
-    }
+    // @GetMapping("list-especialidades")
+    // public ModelAndView especialidadesList(){
+    //     ModelAndView mv = new ModelAndView("especialidade/especialidade-list");
+    //     mv.addObject("especialidades", especialidadeRepository.findAll());
+    //     return mv;
+    // }
 
-    @GetMapping("list-especialidades")
-    public ModelAndView especialidadesList(){
-        ModelAndView mv = new ModelAndView("especialidade/especialidade-list");
-        mv.addObject("especialidades", especialidadeRepository.findAll());
-        return mv;
-    }
+    // @GetMapping("/editar/{id}")
+    // public ModelAndView editar(@PathVariable("id") Integer id){
+    //     ModelAndView mv =  new ModelAndView("especialidade/editar");
+    //     mv.addObject("especialidade", especialidadeRepository.findById(id));
+    //     return mv;
+    // }
 
-    @GetMapping("/editar/{id}")
-    public ModelAndView editar(@PathVariable("id") Integer id){
-        ModelAndView mv =  new ModelAndView("especialidade/editar");
-        mv.addObject("especialidade", especialidadeRepository.findById(id));
-        return mv;
-    }
-
-    @PostMapping("/editar-especialidade")
-    public ModelAndView editar(Especialidade especialidade){
-        ModelAndView mv =  new ModelAndView("especialidade/editar");
-        especialidadeRepository.save(especialidade);
-        return especialidadesList();
-    }
+    // @PostMapping("/editar-especialidade")
+    // public ModelAndView editar(Especialidade especialidade){
+    //     ModelAndView mv =  new ModelAndView("especialidade/editar");
+    //     especialidadeRepository.save(especialidade);
+    //     return especialidadesList();
+    // }
 }

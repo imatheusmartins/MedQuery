@@ -20,8 +20,8 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>, JpaSpe
     
     Optional<Medico> findByEmail(String email);
 
-    @Query(value = "select m from Medico m join m.especialidades e where e.id = :especialidadeId")
-    List<Medico> findByEspecialidadeId(@Param("especialidadeId") Integer especialidadeId);
+    // @Query(value = "select m from Medico m join m.especialidades e where e.id = :especialidadeId")
+    // List<Medico> findByEspecialidadeId(@Param("especialidadeId") Integer especialidadeId);
 
     @Query(value = "select *  from medico", nativeQuery = true)
     public Page<Medico> findAllMedicos(Pageable page);
