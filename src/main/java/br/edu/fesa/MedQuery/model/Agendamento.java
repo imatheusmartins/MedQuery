@@ -1,6 +1,7 @@
 package br.edu.fesa.MedQuery.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import br.edu.fesa.MedQuery.enums.Status;
 import br.edu.fesa.MedQuery.enums.TipoServico;
@@ -10,17 +11,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 @Entity
-
 public class Agendamento  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private LocalDate dataCriacao = LocalDate.now();
-    private LocalDate dataAgendada;
+    private LocalDateTime dataCriacao = LocalDateTime.now();
+    private LocalDateTime dataAgendada;
     private String laudo;
     private TipoServico tipoServico;
     private Status status;
@@ -63,7 +62,7 @@ public class Agendamento  {
         this.id = id;
     }
 
-    public void setDataAgendada(LocalDate dataAgendada) {
+    public void setDataAgendada(LocalDateTime dataAgendada) {
         this.dataAgendada = dataAgendada;
     }
 
@@ -75,11 +74,11 @@ public class Agendamento  {
         return id;
     }
 
-    public LocalDate getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public LocalDate getDataAgendada() {
+    public LocalDateTime getDataAgendada() {
         return dataAgendada;
     }
 

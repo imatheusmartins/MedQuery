@@ -1,5 +1,6 @@
 package br.edu.fesa.MedQuery.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import br.edu.fesa.MedQuery.Specification.MedicoSpecification;
+import br.edu.fesa.MedQuery.model.Agendamento;
 import br.edu.fesa.MedQuery.model.Medico;
 import br.edu.fesa.MedQuery.repositories.MedicoRepository;
 
@@ -15,6 +17,10 @@ public class MedicoService {
 
     @Autowired
     private MedicoRepository medicoRepository;
+
+    public List<Agendamento> buscarAgendamentosPorMedicoEData(Medico medico, LocalDateTime dataAgendada) {
+        return medicoRepository.buscarAgendamentosPorMedicoEData(medico.getId(), dataAgendada.toLocalDate());
+    }
 
     // public List<Medico> filtrarMedicos(String nome, String email, Integer clinicaId, Integer especialidadeId, String crm, String cidadeNome) {
     //     Specification<Medico> spec = Specification.where(MedicoSpecification.porNome(nome))

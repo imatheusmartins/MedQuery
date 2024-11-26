@@ -1,20 +1,26 @@
 package br.edu.fesa.MedQuery.controller;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.fesa.MedQuery.model.Especialidade;
-import br.edu.fesa.MedQuery.enums.Intensidade;
 import br.edu.fesa.MedQuery.enums.Status;
 import br.edu.fesa.MedQuery.enums.TipoServico;
 import br.edu.fesa.MedQuery.model.Agendamento;
@@ -37,7 +43,7 @@ public class AgendamentoController {
     private final SintomaRepository sintomaRepository;
 
     private final AgendamentoService agendamentoService;
-    private MedicoService medicoService;
+    private final MedicoService medicoService;
 
     public AgendamentoController(MedicoRepository medicoRepository, AgendamentoRepository agendamentoRepository, AgendamentoService agendamentoService, 
     MedicoService medicoService, SintomaRepository sintomaRepository) {
@@ -87,7 +93,6 @@ public class AgendamentoController {
         ModelAndView mv = new ModelAndView("agendamento/autoavaliacao");
         
         mv.addObject("sintomas", sintomaRepository.findAll());
-        mv.addObject("intensidades", Intensidade.values());
         mv.addObject("agendamento", agendamento);
         return mv;
     }
@@ -97,11 +102,11 @@ public class AgendamentoController {
         
         agendamento.setEspecialidade(Autoavaliacao.getEspecialidade());
         
-        return especialidade(agendamento);
+        return getMedicos(agendamento);
     }
 
-    @GetMapping("/agendamento-especialidade")
-    public ModelAndView especialidade(Agendamento agendamento){
+    @GetMapping("/agendamento-medicos")
+    public ModelAndView getMedicos(Agendamento agendamento){
         ModelAndView mv = new ModelAndView("agendamento/medicos");
         
         mv.addObject("medicos", medicoRepository.findByEspecialidadeId(agendamento.getEspecialidade().getId()));
@@ -111,11 +116,47 @@ public class AgendamentoController {
 
     @GetMapping("/agendamento-medico")
     public ModelAndView agendamentoMedico(Agendamento agendamento){
-        ModelAndView mv = new ModelAndView("agendamento/autoavaliacao");
+        ModelAndView mv = new ModelAndView("agendamento/medico");
         
-        mv.addObject("sintomas", sintomaRepository.findAll());
         mv.addObject("agendamento", agendamento);
         return mv;
+    }
+
+    @GetMapping("/agendamento-horario")
+    public String horario(@ModelAttribute Agendamento agendamento, RedirectAttributes redirectAttributes, Model model) {
+        LocalDateTime agora = LocalDateTime.now();
+        LocalDateTime dataAgendada = agendamento.getDataAgendada();
+
+        // Verifica se a data agendada é a partir do dia seguinte e no máximo 30 dias após o dia atual
+        if (dataAgendada == null || dataAgendada.toLocalDate().isBefore(agora.toLocalDate().plusDays(1)) || 
+            dataAgendada.toLocalDate().isAfter(agora.toLocalDate().plusDays(30))) {
+            model.addAttribute("error", "A data deve ser a partir de amanhã e no máximo 30 dias após hoje.");
+            return "agendamento/medico";
+        }
+
+    // Verifica se o horário está entre 07:00 e 17:30
+    LocalTime horarioAgendado = dataAgendada.toLocalTime();
+    LocalTime inicioHorario = LocalTime.of(7, 0);
+    LocalTime fimHorario = LocalTime.of(17, 30);
+    if (horarioAgendado.isBefore(inicioHorario) || horarioAgendado.isAfter(fimHorario)) {
+        model.addAttribute("error", "O horário deve ser entre 07:00 e 17:30.");
+        return "agendamento/medico";
+    }
+
+    // Verifica se o médico possui algum agendamento com menos de 15 minutos de diferença
+    List<Agendamento> agendamentosMedico = medicoService.buscarAgendamentosPorMedicoEData(agendamento.getMedico(), dataAgendada);
+    for (Agendamento ag : agendamentosMedico) {
+        LocalDateTime horarioExistente = ag.getDataAgendada();
+        if (Math.abs(Duration.between(horarioExistente, dataAgendada).toMinutes()) < 15) {
+            model.addAttribute("error", "O médico já possui um agendamento próximo ao horário desejado.");
+            return "agendamento/medico";
+        }
+    }
+
+    // Se todas as verificações passarem, salve o agendamento e redirecione
+        agendamentoRepository.save(agendamento);
+        redirectAttributes.addFlashAttribute("successMessage", "Agendamento realizado com sucesso!");
+        return "redirect:/paciente/lista-agendamentos";
     }
 
     // @GetMapping("/agendamento-medicos")

@@ -1,6 +1,7 @@
 package br.edu.fesa.MedQuery.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import br.edu.fesa.MedQuery.Specification.AgendamentoSpecification;
 import br.edu.fesa.MedQuery.enums.Status;
 import br.edu.fesa.MedQuery.enums.TipoServico;
 import br.edu.fesa.MedQuery.model.Agendamento;
+import br.edu.fesa.MedQuery.model.Medico;
 import br.edu.fesa.MedQuery.repositories.AgendamentoRepository;
 
 @Service

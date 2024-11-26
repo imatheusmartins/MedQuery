@@ -1,5 +1,6 @@
 package br.edu.fesa.MedQuery.repositories;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,5 +26,8 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer>, JpaSpe
 
     @Query(value = "select *  from medico", nativeQuery = true)
     public Page<Medico> findAllMedicos(Pageable page);
+
+    @Query("SELECT a FROM Agendamento a WHERE a.medico.id = :medicoId AND DATE(a.dataAgendada) = :data")
+    List<Agendamento> buscarAgendamentosPorMedicoEData(@Param("medicoId") Integer medicoId, @Param("data") LocalDate data);
 
 }
