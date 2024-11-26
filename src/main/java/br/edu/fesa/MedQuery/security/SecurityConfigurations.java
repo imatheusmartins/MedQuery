@@ -48,13 +48,13 @@ public class SecurityConfigurations{
         .csrf(csrf -> csrf.disable()) // Desativa CSRF
         .authorizeHttpRequests(auth -> auth
             .requestMatchers( "/css/**", "/js/**", "/img/**", "/fonts/**", "/login/**", "/cadastro/**", "/cadastro-user/**", "/vendors/**", "/cadastro-user").permitAll()
-            //.anyRequest().authenticated()
-            .anyRequest().permitAll()
+            .anyRequest().authenticated()
+            //.anyRequest().permitAll()
         )
-        .formLogin(form -> form
-                .loginPage("/login")
-                .successHandler(authenticationSuccessHandler)
-                .permitAll()
+        .formLogin(form -> form //após login, o usuário é automaticamente redirecionado
+            .loginPage("/login")
+            .defaultSuccessUrl("/home")
+            .permitAll()
         )
         .logout(logout -> logout
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))

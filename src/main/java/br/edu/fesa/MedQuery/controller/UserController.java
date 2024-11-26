@@ -29,10 +29,10 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public ModelAndView login(User user){
+    public ModelAndView login(Paciente paciente){
         ModelAndView mv =  new ModelAndView("login/login");
 
-        mv.addObject("user", user);
+        mv.addObject("paciente", paciente);
 
         return mv;
     } 
