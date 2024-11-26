@@ -33,6 +33,8 @@ public class Agendamento  {
     private Status status;
     private Set<Sintoma> sintomas = new HashSet<>();
 
+    public Agendamento(){};
+
     @ManyToOne
     @JoinColumn(name = "clinica_id_fk")
     private Clinica clinica;

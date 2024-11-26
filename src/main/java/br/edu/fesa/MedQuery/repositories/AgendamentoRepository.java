@@ -28,6 +28,9 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Intege
 
     long countByStatus(Status status);
 
+    @Query("SELECT a FROM Agendamento a JOIN FETCH a.clinica JOIN FETCH a.medico")
+    List<Agendamento> findAllWithClinicaAndMedico();
+
     // List<Agendamento> findByStatusAndPessoa_Id(Status status, Integer pessoaId);
 
     // Filtrar agendamentos por cidade
