@@ -19,14 +19,14 @@ public class AgendamentoService {
     @Autowired
     private AgendamentoRepository agendamentoRepository;
 
-    public List<Agendamento> filtrarAgendamentos(String cidadeNome, Integer clinicaId, Integer medicoId, Integer especialidadeId, Status status, TipoServico tipoServico) {
-        Specification<Agendamento> spec = Specification.where(AgendamentoSpecification.porCidade(cidadeNome))
-                .and(AgendamentoSpecification.porClinica(clinicaId))
-                .and(AgendamentoSpecification.porMedico(medicoId))
-                .and(AgendamentoSpecification.porEspecialidade(especialidadeId))
-                .and(AgendamentoSpecification.porStatus(status))
-                .and(AgendamentoSpecification.porTipoServico(tipoServico));
+    // public List<Agendamento> filtrarAgendamentos(String cidadeNome, Integer clinicaId, Integer medicoId, Integer especialidadeId, Status status, TipoServico tipoServico) {
+    //     Specification<Agendamento> spec = Specification.where(AgendamentoSpecification.porCidade(cidadeNome))
+    //             .and(AgendamentoSpecification.porClinica(clinicaId))
+    //             .and(AgendamentoSpecification.porMedico(medicoId))
+    //             .and(AgendamentoSpecification.porEspecialidade(especialidadeId))
+    //             .and(AgendamentoSpecification.porStatus(status))
+    //             .and(AgendamentoSpecification.porTipoServico(tipoServico));
 
-        return agendamentoRepository.findAll(spec);
-    }
+    //     return agendamentoRepository.findAll(spec);
+    // }
 }

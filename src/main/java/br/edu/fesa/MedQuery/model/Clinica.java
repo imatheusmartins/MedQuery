@@ -2,11 +2,12 @@ package br.edu.fesa.MedQuery.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.edu.fesa.MedQuery.enums.Cidade;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -18,28 +19,10 @@ public class Clinica {
     private Integer id;
     private String nome;
     private String imagem;
-
-    @OneToOne
-    @JoinColumn(name = "endereco_id_fk")
-    private Endereco endereco;
-
-    // @ManyToOne
-    // @JoinColumn(name = "matriz_id")
-    // private Clinica matriz;
-
-    // @OneToMany(mappedBy = "matriz")
-    // private Set<Clinica> filiais = new HashSet<>();
-
-    // public Clinica(Integer id, String nome, String imagem, Endereco endereco, Gestor gestor, List<Medico> medicos,
-    //         List<Agendamento> agendamentos) {
-    //     this.id = id;
-    //     this.nome = nome;
-    //     this.imagem = imagem;
-    //     this.endereco = endereco;
-    //     this.gestor = gestor;
-    //     this.medicos = medicos;
-    //     this.agendamentos = agendamentos;
-    // }
+    private String rua;
+    private String bairro;
+    private Cidade cidade;
+    private int numero;
 
     @OneToOne(mappedBy = "clinica")
     private Gestor gestor;
@@ -49,6 +32,39 @@ public class Clinica {
 
     @OneToMany(mappedBy = "clinica")
     private List<Agendamento> agendamentos = new ArrayList<>(); 
+
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
 
     public Clinica (){};
 
@@ -75,30 +91,4 @@ public class Clinica {
     public void setImagem(String imagem) {
         this.imagem = imagem;
     }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    // public Clinica getMatriz() {
-    //     return matriz;
-    // }
-
-    // public void setMatriz(Clinica matriz) {
-    //     this.matriz = matriz;
-    // }
-
-    // public Gestor getGestor() {
-    //     return gestor;
-    // }
-
-    // public void setGestor(Gestor gestor) {
-    //     this.gestor = gestor;
-    // }
-
-    
 }

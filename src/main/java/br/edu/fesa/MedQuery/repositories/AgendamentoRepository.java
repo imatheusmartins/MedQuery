@@ -29,30 +29,30 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Intege
     // List<Agendamento> findByStatusAndPessoa_Id(Status status, Integer pessoaId);
 
     // Filtrar agendamentos por cidade
-    @Query("SELECT a FROM Agendamento a WHERE a.clinica.endereco.cidade.nome = :cidadeNome")
-    List<Agendamento> findByCidade(String cidadeNome);
+    // @Query("SELECT a FROM Agendamento a WHERE a.clinica.endereco.cidade.nome = :cidadeNome")
+    // List<Agendamento> findByCidade(String cidadeNome);
 
     // Filtrar agendamentos por clínica
-    @Query("SELECT a FROM Agendamento a WHERE a.clinica.id = :clinicaId")
-    List<Agendamento> findByClinica(Integer clinicaId);
+    // @Query("SELECT a FROM Agendamento a WHERE a.clinica.id = :clinicaId")
+    // List<Agendamento> findByClinica(Integer clinicaId);
 
-    // Filtrar agendamentos por médico
-    @Query("SELECT a FROM Agendamento a WHERE a.medico.id = :medicoId")
-    List<Agendamento> findByMedico(Integer medicoId);
+    // // Filtrar agendamentos por médico
+    // @Query("SELECT a FROM Agendamento a WHERE a.medico.id = :medicoId")
+    // List<Agendamento> findByMedico(Integer medicoId);
 
-    // Filtrar agendamentos por especialidade
-    @Query("SELECT a FROM Agendamento a WHERE a.especialidade.id = :especialidadeId")
-    List<Agendamento> findByEspecialidade(Integer especialidadeId);
+    // // Filtrar agendamentos por especialidade
+    // @Query("SELECT a FROM Agendamento a WHERE a.especialidade.id = :especialidadeId")
+    // List<Agendamento> findByEspecialidade(Integer especialidadeId);
     
-    // Filtrar agendamentos por status
-    List<Agendamento> findByStatus(Status status);
+    // // Filtrar agendamentos por status
+    // List<Agendamento> findByStatus(Status status);
     
-    // Filtrar agendamentos por tipo de serviço
-    List<Agendamento> findByTipoServico(TipoServico tipoServico);
+    // // Filtrar agendamentos por tipo de serviço
+    // List<Agendamento> findByTipoServico(TipoServico tipoServico);
     
     // Filtrar agendamentos por cidade e data
-    @Query("SELECT a FROM Agendamento a WHERE a.clinica.endereco.cidade.nome = :cidadeNome AND a.dataAgendada = :dataAgendada")
-    List<Agendamento> findByCidadeAndData(String cidadeNome, LocalDate dataAgendada);
+    // @Query("SELECT a FROM Agendamento a WHERE a.clinica.endereco.cidade.nome = :cidadeNome AND a.dataAgendada = :dataAgendada")
+    // List<Agendamento> findByCidadeAndData(String cidadeNome, LocalDate dataAgendada);
 
     // Filtrar agendamentos a partir de uma data (inclusive)
     // List<Agendamento> findByDataAgendadaAfterOrDataAgendadaEquals(LocalDate dataInicial);

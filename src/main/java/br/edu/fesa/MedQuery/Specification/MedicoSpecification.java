@@ -3,7 +3,6 @@ package br.edu.fesa.MedQuery.Specification;
 import org.springframework.data.jpa.domain.Specification;
 
 import br.edu.fesa.MedQuery.model.Clinica;
-import br.edu.fesa.MedQuery.model.Endereco;
 import br.edu.fesa.MedQuery.model.Especialidade;
 import br.edu.fesa.MedQuery.model.Medico;
 import jakarta.persistence.criteria.Join;
@@ -54,21 +53,6 @@ public class MedicoSpecification {
                 return null;
             }
             return criteriaBuilder.equal(root.get("crm"), crm);
-        };
-    }
-
-    public static Specification<Medico> porCidade(String cidadeNome) {
-        return (root, query, criteriaBuilder) -> {
-            if (cidadeNome == null || cidadeNome.isEmpty()) {
-                return null;
-            }
-
-            // Join para acessar a clínica e, dentro dela, o endereço
-            Join<Medico, Clinica> clinica = root.join("clinica");
-            Join<Clinica, Endereco> endereco = clinica.join("endereco");
-
-            // Filtrando pela cidade
-            return criteriaBuilder.like(criteriaBuilder.lower(endereco.get("cidade").get("nome")), "%" + cidadeNome.toLowerCase() + "%");
         };
     }
 }

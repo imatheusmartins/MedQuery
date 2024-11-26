@@ -20,9 +20,6 @@ public interface ClinicaRepository extends JpaRepository<Clinica, Integer> {
     @Query("SELECT c FROM Clinica c WHERE c.gestor.id = :gestorId")
     List<Clinica> findByGestorId(Integer gestorId);
 
-    // Buscar clínicas em uma cidade específica
-    @Query("SELECT c FROM Clinica c WHERE c.endereco.cidade.nome = :cidadeNome")
-    List<Clinica> findByCidadeNome(String cidadeNome);
 
     // Encontrar clínicas com um número específico de médicos (pelo menos x médicos)
     @Query("SELECT c FROM Clinica c WHERE SIZE(c.medicos) >= :quantidadeMedicos")

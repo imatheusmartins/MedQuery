@@ -1,56 +1,66 @@
 <nav th:fragment="sidebarImports" class="sidebar sidebar-offcanvas " id="sidebar">
-    <ul class="nav">
-      <li class="nav-item">
-        <!-- <a class="nav-link" th:href="@{home}" > -->
-          <i class="mdi mdi-home"></i>
-          <span class="menu-title">&nbsp;&nbsp; HOME</span>
-        </a>
-      </li>
-    
-      <li class="nav-item mt-4">
-        <a class="nav-link" th:href="@{/autoavaliacao}"> 
-          <i class="mdi mdi-clipboard-text"></i>
-          <span class="menu-title">&nbsp;&nbsp; AGENDAR</span>
-        </a>
-      </li>
+  <ul class="nav">
+    <li class="nav-item">
+      <!-- <a class="nav-link" th:href="@{home}" > -->
+      <i class="mdi mdi-home"></i>
+      <span class="menu-title">&nbsp;&nbsp; HOME</span>
+      </a>
+    </li>
 
-      <li class="nav-item mt-4">
-        <a class="nav-link" th:href="@{/autoavaliacao}"> 
-          <i class="mdi mdi-clipboard-text"></i>
-          <span class="menu-title">&nbsp;&nbsp; HISTÓRICO</span>
-        </a>
-      </li>
-    
-      
+    <li class="nav-item mt-4">
+      <a class="nav-link" th:href="@{/autoavaliacao}">
+        <i class="mdi mdi-clipboard-text"></i>
+        <span class="menu-title">&nbsp;&nbsp; AGENDAR</span>
+      </a>
+    </li>
 
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" data-target="#medicos">
-          <i class="mdi mdi-account-multiple"></i>
-          <span class="menu-title">&nbsp;&nbsp; MÉDICOS &nbsp;&nbsp;</span>
-          <i class="mdi mdi-chevron-down"></i>
-        </a>
-        <div class="collapse" id="medicos">
-          <ul class="nav flex-column sub-menu">
-            <li class="nav-item"><a th:href="@{/medico/cadastro}" class="nav-link">Novo Médico</a></li>
-            <li class="nav-item"><a th:href="@{/medico/list-medicos}" class="nav-link">Lista de Médicos</a></li>
-          </ul>
-        </div>
-      </li>
+    <li class="nav-item mt-4">
+      <a class="nav-link" th:href="@{/autoavaliacao}">
+        <i class="mdi mdi-clipboard-text"></i>
+        <span class="menu-title">&nbsp;&nbsp; HISTÓRICO</span>
+      </a>
+    </li>
 
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#unidades">
-          <i class="mdi mdi-gift"></i>
-          <span class="menu-title">&nbsp;&nbsp; UNIDADES &nbsp;&nbsp;</span>
-          <i class="mdi mdi-chevron-down"></i>
-        </a>
-        <div class="collapse" id="unidades">
-          <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" th:href="@{../recursos/icons}">Cadastrar Unidade</a></li>
-            <li class="nav-item"> <a class="nav-link" th:href="@{../recursos/elementos}">Lista de Unidades</a></li>
-          </ul>
-        </div>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" data-target="#gestores">
+        <i class="mdi mdi-account-multiple"></i>
+        <span class="menu-title">&nbsp;&nbsp; GESTOR &nbsp;&nbsp;</span>
+        <i class="mdi mdi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="gestores">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"><a th:href="@{/gestor/cadastro}" class="nav-link">Novo Gestor</a></li>
+          <li class="nav-item"><a th:href="@{/gestor/list-gestores}" class="nav-link">Lista de Gestores</a></li>
+        </ul>
+      </div>
+    </li>
 
-      </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" data-target="#medicos">
+        <i class="mdi mdi-account-multiple"></i>
+        <span class="menu-title">&nbsp;&nbsp; MÉDICOS &nbsp;&nbsp;</span>
+        <i class="mdi mdi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="medicos">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"><a th:href="@{/medico/cadastro}" class="nav-link">Novo Médico</a></li>
+          <li class="nav-item"><a th:href="@{/medico/list-medicos}" class="nav-link">Lista de Médicos</a></li>
+        </ul>
+      </div>
+    </li>
 
-    </ul>
-  </nav>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="collapse" href="#clinicas">
+        <i class="mdi mdi-gift"></i>
+        <span class="menu-title">&nbsp;&nbsp; CLÍNICAS &nbsp;&nbsp;</span>
+        <i class="mdi mdi-chevron-down"></i>
+      </a>
+      <div class="collapse" id="clinicas">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" th:href="@{/clinica/cadastro}">Nova Clínica</a></li>
+          <li class="nav-item"> <a class="nav-link" th:href="@{/clinica/list-clinica}">Lista de Clínicas</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</nav>
