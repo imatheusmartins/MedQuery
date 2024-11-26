@@ -51,6 +51,8 @@ public class AgendamentoController {
     @Autowired
     private MedicoRepository medicoRepository;
 
+    Agendamento agendamentoConst;
+
     // @Autowired
     // private final MedicoRepository medicoRepository;
     
@@ -84,39 +86,66 @@ public class AgendamentoController {
 
         mv.addObject("agendamento", agendamento);
 
+        agendamentoConst = agendamento;
+
         mv.addObject("clinicas", clinicaRepository.findAll());
         mv.addObject("medicosList", medicoRepository.findAll());
         return mv;
     }
 
     @GetMapping("/lista-medico")
-    public ModelAndView getListMedico(Agendamento agendamento){
+    public ModelAndView getListMedico(@RequestParam String clinicaId){
         ModelAndView mv =  new ModelAndView("agendamento/lista-medicos");
 
+        Integer clinicaIdInt = Integer.parseInt(clinicaId);
+
+        Clinica clinica = clinicaRepository.findById(clinicaIdInt)
+                                            .orElseThrow(() -> new RuntimeException("Clínica não encontrada"));
+
+        agendamentoConst.setClinica(clinica);
+        //Fazer atribuição de clinica no agendamento
+
         mv.addObject("medicos", medicoRepository.findAll());
-        mv.addObject("agendamento", agendamento);
 
         return mv;
     }
 
     @GetMapping("/agendamento")
-    public ModelAndView getAgendamento(Agendamento agendamento){
+    public ModelAndView getAgendamento(@RequestParam String medicoId){
         ModelAndView mv =  new ModelAndView("agendamento/agendamento");
 
+        Integer medicoIdInt = Integer.parseInt(medicoId);
+
+        Medico medico = medicoRepository.findById(medicoIdInt)
+                                            .orElseThrow(() -> new RuntimeException("Médico não encontrada"));
+
+        agendamentoConst.setMedico(medico);
+
+        Agendamento agendamento = agendamentoConst;
+
+
+        //Fazer atribuição de clinica no agendamento
         mv.addObject("agendamento", agendamento);
 
         return mv;
     }
 
     @PostMapping("/salvar")
-    public ModelAndView postSalvarAgendamento(@ModelAttribute Agendamento agendamento){
-        ModelAndView mv =  new ModelAndView("agendamento/lista-clinicas");
+    public String postSalvarAgendamento(@ModelAttribute Agendamento agendamento){
+        ModelAndView mv =  new ModelAndView("agendamento/agendamento");
 
-        mv.addObject("agendamento", agendamento);
+        agendamentoConst.setData(agendamento.getData());
+        agendamentoConst.setHora(agendamento.getHora());
 
-        mv.addObject("clinicas", clinicaRepository.findAll());
-        mv.addObject("medicosList", medicoRepository.findAll());
-        return mv;
+        try {
+            agendamentoRepository.save(agendamentoConst);
+            System.out.println("Salvo com sucesso: " + agendamentoConst.getId());
+            return "redirect:/home";
+        } catch (Exception e) {
+            mv.addObject("msgErro", e.getMessage());
+            System.out.println("Erro ao salvar " + e.getMessage());
+            return "redirect:/home";
+        }
     }
 
 

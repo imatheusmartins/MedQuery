@@ -24,60 +24,63 @@
               </div>
             </div>
           </div>
-            <!-- content main -->
+          <!-- conteúdo principal -->
           <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
-              <div class="card table-bg">
-                <div class="card-people mt-auto">
-                  <div class="d-flex justify-content-between align-items-baseline">
-                    <h4 class="m-4">Agendamentos concluídos</h4>
-                    <!-- <a class="btn btn-success" th:href="@{ticket/export}">Exportar  <i style="vertical-align: middle;" class="mdi mdi-file-excel"></i> </a> -->
-                  </div>
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Data</th>
-                        <th scope="col">Horário</th>
-                        <th scope="col">Unidade</th>
-                        <th scope="col">Médico</th>
-                        <th scope="col">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <!-- <tr th:each="chamados : ${chamadosList}">
-                        <td th:text="${chamados.id}"></td>
-                        <td th:text="${chamados.dataAbertura}"></td>
-                        <td th:text="${chamados.titulo}"></td>
-                        <td th:text="${chamados.observacao}"></td>
-                        <td th:text="${chamados.prioridade}"></td>
-                        <td th:text="${chamados.status}"></td>
-                        <td th:text="${chamados.tecnico.nome}"></td>
-                      </tr> -->
-                      
-                    </tbody>
-                  </table>
-                  <!-- paginação da tabela -->
-                  <nav class="m-4">
-                    <ul class="pagination">
-                      <li class="page-item disabled">
-                        <a class="page-link">Previous</a>
-                      </li>
-                      <!-- <li class="page-item" th:each=" i : ${#numbers.sequence(1, chamadosList.totalPages)}"> -->
-                        <!-- <a class="page-link" th:text="${i}" th:href="@{/(page=${i})}">1</a> -->
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                  </nav>
+                <div class="card table-bg">
+                    <div class="card-people mt-auto">
+                        <h4 class="m-4">Agendamentos realizados</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Clínica</th>
+                                    <th scope="col">Médico</th>
+                                    <th scope="col">Sintomas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="ageds : ${agendamentos}">
+                                    <td th:text="${ageds.data}"></td>
+                                    <td th:text="${ageds.hora}"></td>
+                                    <td th:text="${ageds.clinica.nome}"></td>
+                                    <td th:text="${ageds.medico.nome}"></td>
+                                    <td>
+                                      <ul>
+                                          <li th:each="sintoma : ${ageds.sintomas}" th:text="${sintoma.sintoma}"></li>
+                                      </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- paginação da tabela -->
+                        <nav class="m-4">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link">Previous</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item " aria-current="page">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
-              </div>
             </div>
             <div class="col-md-12 grid-margin transparent">
-             <!-- conteudo indefinido -->
+                <!-- conteudo indefinido -->
             </div>
-          </div>
+        </div>
           <!-- end content wrapper -->
         </div>
         <!-- partial:partials/_footer.html -->
