@@ -24,5 +24,4 @@ public class Sintoma {
     public Sintoma(String nome) {
         this.nome = nome;
     }
-
 }

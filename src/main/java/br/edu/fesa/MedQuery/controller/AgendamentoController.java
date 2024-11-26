@@ -21,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.fesa.MedQuery.model.Especialidade;
+import br.edu.fesa.MedQuery.enums.EspecialidadeEnum;
 import br.edu.fesa.MedQuery.enums.Status;
 import br.edu.fesa.MedQuery.enums.TipoServico;
+import br.edu.fesa.MedQuery.enums.UserRole;
 import br.edu.fesa.MedQuery.model.Agendamento;
 import br.edu.fesa.MedQuery.model.Clinica;
 import br.edu.fesa.MedQuery.model.Medico;
@@ -52,6 +54,15 @@ public class AgendamentoController {
         this.agendamentoService = agendamentoService;
         this.medicoService = medicoService;
         this.sintomaRepository = sintomaRepository;
+    }
+
+    //Método que incializa o html
+    @GetMapping("/cadastro")
+    public ModelAndView getCadastroMedico(Medico medico){
+        ModelAndView mv =  new ModelAndView("medico/cadastro");
+        mv.addObject("medico", medico);
+
+        return mv;
     }
 
     @GetMapping("/agendamento-servico")
@@ -100,7 +111,7 @@ public class AgendamentoController {
     @PostMapping("/autoavaliacao")
     public ModelAndView autoavaliacao(Agendamento agendamento, Sintoma[] sintomas){
         
-        agendamento.setEspecialidade(Autoavaliacao.getEspecialidade());
+        //agendamento.setEspecialidade(Autoavaliacao.getEspecialidade());
         
         return getMedicos(agendamento);
     }
@@ -109,7 +120,7 @@ public class AgendamentoController {
     public ModelAndView getMedicos(Agendamento agendamento){
         ModelAndView mv = new ModelAndView("agendamento/medicos");
         
-        mv.addObject("medicos", medicoRepository.findByEspecialidadeId(agendamento.getEspecialidade().getId()));
+        // mv.addObject("medicos", medicoRepository.findByEspecialidadeId(agendamento.getEspecialidade().getId()));
         mv.addObject("agendamento", agendamento);
         return mv;
     }
@@ -245,7 +256,6 @@ public class AgendamentoController {
         agendamentoRepository.save(agendamento);
         return medicoHome(1); 
     }
-
 
     // @GetMapping("/export")
     // public void exportCsv(HttpServletResponse response) throws IOException {

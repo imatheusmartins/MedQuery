@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.hibernate.id.uuid.UuidGenerator;
 
+import br.edu.fesa.MedQuery.enums.EspecialidadeEnum;
 import br.edu.fesa.MedQuery.enums.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,13 +30,13 @@ public class Medico extends User{
     @JoinColumn(name = "clinica_id_fk")
     private Clinica clinica;
 
-    @ManyToMany
-    @JoinTable(
-        name = "medico_especialidade",
-        joinColumns = @JoinColumn(name = "medico_id"),
-        inverseJoinColumns = @JoinColumn(name = "especialidade_id")
-    )
-    private Set<Especialidade> especialidades = new HashSet<>();
+    // @ManyToMany
+    // @JoinTable(
+    //     name = "medico_especialidade",
+    //     joinColumns = @JoinColumn(name = "medico_id"),
+    //     inverseJoinColumns = @JoinColumn(name = "especialidade_id")
+    // )
+    private Set<EspecialidadeEnum> especialidades = new HashSet<>();
 
     @OneToMany(mappedBy = "medico")
     private List<Agendamento> agendamentos = new ArrayList<>();
@@ -58,11 +59,11 @@ public class Medico extends User{
     public Medico() {
     }
 
-    public Set<Especialidade> getEspecialidades() {
+    public Set<EspecialidadeEnum> getEspecialidades() {
         return especialidades;
     }
 
-    public void setEspecialidades(Set<Especialidade> especialidades) {
+    public void setEspecialidades(Set<EspecialidadeEnum> especialidades) {
         this.especialidades = especialidades;
     }
     public String getCrm() {

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import br.edu.fesa.MedQuery.enums.EspecialidadeEnum;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,22 +24,18 @@ public class Especialidade {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String nome;
+    private EspecialidadeEnum especialidade;
 
-    @ManyToMany(mappedBy = "especialidades")
-    private Set<Medico> medicos = new HashSet<>();
+    // @ManyToMany(mappedBy = "especialidades")
+    // private Set<Medico> medicos = new HashSet<>();
 
     @OneToMany(mappedBy = "especialidade")
     private List<Agendamento> agendamentos = new ArrayList<>();
     
-    public Especialidade(String nome) {
-        this.nome = nome;
-    }
 
-    public Especialidade(Integer id, String nome, Set<Medico> medicos, List<Agendamento> agendamentos) {
+    public Especialidade(Integer id,  List<Agendamento> agendamentos) {
         this.id = id;
-        this.nome = nome;
-        this.medicos = medicos;
+        //this.medicos = medicos;
         this.agendamentos = agendamentos;
     }
 
@@ -46,12 +43,11 @@ public class Especialidade {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public EspecialidadeEnum getEspecialidade() {
+        return especialidade;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setEspecialidade(EspecialidadeEnum especialidade) {
+        this.especialidade = especialidade;
     }
-    
 }

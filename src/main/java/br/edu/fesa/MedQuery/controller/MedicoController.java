@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.edu.fesa.MedQuery.enums.EspecialidadeEnum;
 import br.edu.fesa.MedQuery.enums.UserRole;
 import br.edu.fesa.MedQuery.model.Agendamento;
 import br.edu.fesa.MedQuery.model.Medico;
@@ -39,6 +40,9 @@ public class MedicoController {
         ModelAndView mv =  new ModelAndView("medico/cadastro");
         UserRole[] userRoleMedico = {UserRole.MEDICO};
         mv.addObject("userRoles", userRoleMedico);
+
+        mv.addObject("especialidadesOption", EspecialidadeEnum.values());
+
         mv.addObject("medico", medico);
 
         return mv;
