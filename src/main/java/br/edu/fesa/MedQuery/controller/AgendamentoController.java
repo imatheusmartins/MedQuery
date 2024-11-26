@@ -118,44 +118,44 @@ public class AgendamentoController {
         return mv;
     }
 
-    @GetMapping("/agendamento-medicos")
-    public List<Medico> filtrarMedicos(Agendamento agendamento,
-            @RequestParam(value = "nome", required = false) String nome,
-            @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "clinica", required = false) Clinica clinica,
-            @RequestParam(value = "crm", required = false) String crm,
-            @RequestParam(value = "cidadeNome", required = false) String cidadeNome) {
+    // @GetMapping("/agendamento-medicos")
+    // public List<Medico> filtrarMedicos(Agendamento agendamento,
+    //         @RequestParam(value = "nome", required = false) String nome,
+    //         @RequestParam(value = "email", required = false) String email,
+    //         @RequestParam(value = "clinica", required = false) Clinica clinica,
+    //         @RequestParam(value = "crm", required = false) String crm,
+    //         @RequestParam(value = "cidadeNome", required = false) String cidadeNome) {
             
-            ModelAndView mv = new ModelAndView("agendamento/lista-medicos");
-            var especialidade = agendamento.getEspecialidade();
+    //         ModelAndView mv = new ModelAndView("agendamento/lista-medicos");
+    //         var especialidade = agendamento.getEspecialidade();
 
-        return medicoService.filtrarMedicos(nome, email, clinica.getId(), especialidade.getId(), crm, cidadeNome);
-    }
+    //     return medicoService.filtrarMedicos(nome, email, clinica.getId(), especialidade.getId(), crm, cidadeNome);
+    // }
 
-    @GetMapping("/filtro-agendamento")
-    public List<Agendamento> filtrarAgendamentos(
-            @RequestParam(value = "cidadeNome", required = false) String cidadeNome,
-            @RequestParam(value = "clinica", required = false) Clinica clinica,
-            @RequestParam(value = "medico", required = false) Medico medico,
-            @RequestParam(value = "especialidade", required = false) Especialidade especialidade,
-            @RequestParam(value = "status", required = false) Status status,
-            @RequestParam(value = "tipoServico", required = false) TipoServico tipoServico) {
+    // @GetMapping("/filtro-agendamento")
+    // public List<Agendamento> filtrarAgendamentos(
+    //         @RequestParam(value = "cidadeNome", required = false) String cidadeNome,
+    //         @RequestParam(value = "clinica", required = false) Clinica clinica,
+    //         @RequestParam(value = "medico", required = false) Medico medico,
+    //         @RequestParam(value = "especialidade", required = false) Especialidade especialidade,
+    //         @RequestParam(value = "status", required = false) Status status,
+    //         @RequestParam(value = "tipoServico", required = false) TipoServico tipoServico) {
 
-        return agendamentoService.filtrarAgendamentos(cidadeNome, clinica.getId(), medico.getId(), especialidade.getId(), status, tipoServico);
-    }
+    //     return agendamentoService.filtrarAgendamentos(cidadeNome, clinica.getId(), medico.getId(), especialidade.getId(), status, tipoServico);
+    // }
 
-    @GetMapping("/filtro-medico")
-    public List<Medico> filtrarMedicos(
-            @RequestParam(value = "nome", required = false) String nome,
-            @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "clinica", required = false) Clinica clinica,
-            @RequestParam(value = "especialidade", required = false) Especialidade especialidade,
-            @RequestParam(value = "crm", required = false) String crm,
-            @RequestParam(value = "cidadeNome", required = false) String cidadeNome) {
+    // @GetMapping("/filtro-medico")
+    // public List<Medico> filtrarMedicos(
+    //         @RequestParam(value = "nome", required = false) String nome,
+    //         @RequestParam(value = "email", required = false) String email,
+    //         @RequestParam(value = "clinica", required = false) Clinica clinica,
+    //         @RequestParam(value = "especialidade", required = false) Especialidade especialidade,
+    //         @RequestParam(value = "crm", required = false) String crm,
+    //         @RequestParam(value = "cidadeNome", required = false) String cidadeNome) {
 
 
-        return medicoService.filtrarMedicos(nome, email, clinica.getId(), especialidade.getId(), crm, cidadeNome);
-    }
+    //     return medicoService.filtrarMedicos(nome, email, clinica.getId(), especialidade.getId(), crm, cidadeNome);
+    // }
 
     @GetMapping
     public ModelAndView medicoHome(@RequestParam(defaultValue = "1") int page){
