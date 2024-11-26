@@ -62,6 +62,7 @@ public class Agendamento  {
     //     this.medico = medico;
     //     this.especialidade = especialidade;
     // }
+    
     public Set<Sintoma> getSintomas() {
         return sintomas;
     }

@@ -11,8 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.core.env.Environment;
 
+import br.edu.fesa.MedQuery.controller.handlers.CustomAuthenticationSuccessHandler;
 import br.edu.fesa.MedQuery.service.GestorUserDetailsService;
 import br.edu.fesa.MedQuery.service.MedicoUserDetailsService;
 import br.edu.fesa.MedQuery.service.PacienteUserDetailsService;
@@ -20,6 +22,8 @@ import br.edu.fesa.MedQuery.service.PacienteUserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurations{
+    @Autowired
+    private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
     private PacienteUserDetailsService pacienteUserDetailsService;
@@ -47,14 +51,15 @@ public class SecurityConfigurations{
             //.anyRequest().authenticated()
             .anyRequest().permitAll()
         )
-        .formLogin(form -> form //após login, o usuário é automaticamente redirecionado
-            .loginPage("/login")
-            .defaultSuccessUrl("/home")
-            .permitAll()
+        .formLogin(form -> form
+                .loginPage("/login")
+                .successHandler(authenticationSuccessHandler)
+                .permitAll()
         )
         .logout(logout -> logout
-            .logoutUrl("/logout")
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
             .logoutSuccessUrl("/login")
+            .permitAll()
         );
         // .rememberMe(rememberMe -> rememberMe
         //     .key("keyRemember-me")

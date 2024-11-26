@@ -22,6 +22,8 @@ import br.edu.fesa.MedQuery.model.User;
 import br.edu.fesa.MedQuery.repositories.AgendamentoRepository;
 import br.edu.fesa.MedQuery.repositories.MedicoRepository;
 import br.edu.fesa.MedQuery.util.PasswordUtil;
+import br.edu.fesa.MedQuery.util.UserContext;
+import br.edu.fesa.MedQuery.util.UserContext;
 
 @Controller
 @RequestMapping("/medico")
@@ -48,14 +50,19 @@ public class MedicoController {
         return mv;
     }
 
-    //Método que recebe o dado enviado no form do html 
+    //Método que recebe o dado enviado no form do html
     @PostMapping("/cadastro-medico")
     public String postCadastroMedico(@ModelAttribute Medico medico){
         ModelAndView mv =  new ModelAndView("medico/cadastro");
+        
+        User user = UserContext.getCurrentUser();
+
+        // if(user.getRole)
 
         String hashSenha = PasswordUtil.encoder(medico.getSenha());
         medico.setSenha(hashSenha);
 
+        // medico.setClinica(user.get);
         mv.addObject("medico", medico);
 
         try {

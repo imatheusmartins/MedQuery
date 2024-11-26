@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.fesa.MedQuery.enums.UserRole;
 import br.edu.fesa.MedQuery.model.Paciente;
+import br.edu.fesa.MedQuery.model.User;
 import br.edu.fesa.MedQuery.repositories.GestorRepository;
 import br.edu.fesa.MedQuery.repositories.MedicoRepository;
 import br.edu.fesa.MedQuery.repositories.PacienteRepository;
@@ -28,10 +29,10 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public ModelAndView login(Paciente paciente){
+    public ModelAndView login(User user){
         ModelAndView mv =  new ModelAndView("login/login");
 
-        mv.addObject("paciente", paciente);
+        mv.addObject("user", user);
 
         return mv;
     } 
