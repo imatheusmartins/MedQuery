@@ -3,7 +3,7 @@
 
 <head th:replace="~{fragments/head :: headImports}"></head>
 <style>
-    .lblMedico {
+    .lblClinica {
         font-weight: bold;
     }
 </style>
@@ -25,13 +25,13 @@
                         <div class="col-md-12 grid-margin">
                             <div class="row">
                                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                                    <h3 class="font-weight-bold">Editar Cliente</h3>
+                                    <h3 class="font-weight-bold">Editar Clínica</h3>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- conteúdo principal -->
-                    <form class="form-sample" th:action="@{/medico/editar-medico}" method="post" th:object="${medico}">
+                    <form class="form-sample" th:action="@{/clinica/editar-clinica}" method="post" th:object="${clinica}">
                         <input type="hidden" th:field="*{id}">
                         <div class="row">
                             <div class="col-md-6">
@@ -44,9 +44,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Email</label>
+                                    <label class="col-sm-3 col-form-label">Rua</label>
                                     <div class="col-sm-9">
-                                        <input th:field="*{email}" type="text" class="form-control" />
+                                        <input th:field="*{rua}" type="text" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -54,35 +54,31 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">CRM</label>
+                                    <label class="col-sm-3 col-form-label">Número</label>
                                     <div class="col-sm-9">
-                                        <input th:field="*{crm}" type="text" class="form-control" />
+                                        <input th:field="*{numero}" type="number" class="form-control" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Papel</label>
+                                    <label class="col-sm-3 col-form-label">Bairro</label>
                                     <div class="col-sm-9">
-                                        <select id="" class="form-control" th:field="*{userRole}">
-                                            <option value="" disabled selected>Selecione seu papel</option>
-                                            <option th:each="userRole : ${userRoles}" th:text="${userRole}"  th:value="${userRole}">
+                                        <input th:field="*{bairro}" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Cidade</label>
+                                    <div class="col-sm-9">
+                                        <select id="" class="form-control" th:field="*{cidade}">
+                                            <option value="" disabled selected>Selecione a cidade</option>
+                                            <option th:each="cidade : ${cidades}" th:text="${cidade.cidade}"  th:value="${cidade}">
                                             </option>
                                         </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label"></label>
-                                    <div class="col-sm-9">
-                                        <div class="form-check">
-                                            <!-- Usando th:checked para verificar o estado e th:disabled para desabilitar -->
-                                            <input th:field="*{ativo}" type="checkbox" class="form-check-input" id="ativoCheckbox" checked >
-                                            <label class="form-check-label" for="ativoCheckbox">Ativo</label>
-                                        </div>
                                     </div>
                                 </div>
                             </div>                                   

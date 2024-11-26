@@ -10,10 +10,7 @@ import br.edu.fesa.MedQuery.model.Agendamento;
 
 public class AgendamentoSpecification {
 
-    public static Specification<Agendamento> porCidade(String cidadeNome) {
-        return (root, query, builder) -> cidadeNome == null ? null :
-                builder.equal(root.get("clinica").get("endereco").get("cidade").get("nome"), cidadeNome);
-    }
+    
 
     public static Specification<Agendamento> porClinica(Integer clinicaId) {
         return (root, query, builder) -> clinicaId == null ? null :

@@ -25,13 +25,13 @@
                         <div class="col-md-12 grid-margin">
                             <div class="row">
                                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                                    <h3 class="font-weight-bold">Editar Cliente</h3>
+                                    <h3 class="font-weight-bold">Editar Gestor</h3>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- conteúdo principal -->
-                    <form class="form-sample" th:action="@{/medico/editar-medico}" method="post" th:object="${medico}">
+                    <form class="form-sample" th:action="@{/gestor/editar-gestor}" method="post" th:object="${gestor}">
                         <input type="hidden" th:field="*{id}">
                         <div class="row">
                             <div class="col-md-6">
@@ -47,28 +47,6 @@
                                     <label class="col-sm-3 col-form-label">Email</label>
                                     <div class="col-sm-9">
                                         <input th:field="*{email}" type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">CRM</label>
-                                    <div class="col-sm-9">
-                                        <input th:field="*{crm}" type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Papel</label>
-                                    <div class="col-sm-9">
-                                        <select id="" class="form-control" th:field="*{userRole}">
-                                            <option value="" disabled selected>Selecione seu papel</option>
-                                            <option th:each="userRole : ${userRoles}" th:text="${userRole}"  th:value="${userRole}">
-                                            </option>
-                                        </select>
                                     </div>
                                 </div>
                             </div>

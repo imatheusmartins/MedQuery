@@ -16,14 +16,14 @@ public class MedicoService {
     @Autowired
     private MedicoRepository medicoRepository;
 
-    public List<Medico> filtrarMedicos(String nome, String email, Integer clinicaId, Integer especialidadeId, String crm, String cidadeNome) {
-        Specification<Medico> spec = Specification.where(MedicoSpecification.porNome(nome))
-                .and(MedicoSpecification.porEmail(email))
-                .and(MedicoSpecification.porClinica(clinicaId))
-                .and(MedicoSpecification.porEspecialidade(especialidadeId))
-                .and(MedicoSpecification.porCrm(crm))
-                .and(MedicoSpecification.porCidade(cidadeNome));
+    // public List<Medico> filtrarMedicos(String nome, String email, Integer clinicaId, Integer especialidadeId, String crm, String cidadeNome) {
+    //     Specification<Medico> spec = Specification.where(MedicoSpecification.porNome(nome))
+    //             .and(MedicoSpecification.porEmail(email))
+    //             .and(MedicoSpecification.porClinica(clinicaId))
+    //             .and(MedicoSpecification.porEspecialidade(especialidadeId))
+    //             .and(MedicoSpecification.porCrm(crm))
+    //             .and(MedicoSpecification.porCidade(cidadeNome));
 
-        return medicoRepository.findAll(spec);
-    }
+    //     return medicoRepository.findAll(spec);
+    // }
 }
