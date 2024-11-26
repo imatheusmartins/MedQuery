@@ -48,6 +48,9 @@ public class AgendamentoController {
     @Autowired
     private ClinicaRepository clinicaRepository;
 
+    @Autowired
+    private MedicoRepository medicoRepository;
+
     // @Autowired
     // private final MedicoRepository medicoRepository;
     
@@ -75,16 +78,47 @@ public class AgendamentoController {
         return mv;
     }
 
-    @PostMapping("/envia-sintomas")
-    public ModelAndView postCadastroMedico(@ModelAttribute Agendamento agendamento){
+    @PostMapping("/lista-clinicas")
+    public ModelAndView getListClinicas(@ModelAttribute Agendamento agendamento){
         ModelAndView mv =  new ModelAndView("agendamento/lista-clinicas");
 
         mv.addObject("agendamento", agendamento);
 
         mv.addObject("clinicas", clinicaRepository.findAll());
+        mv.addObject("medicosList", medicoRepository.findAll());
         return mv;
-
     }
+
+    @GetMapping("/lista-medico")
+    public ModelAndView getListMedico(Agendamento agendamento){
+        ModelAndView mv =  new ModelAndView("agendamento/lista-medicos");
+
+        mv.addObject("medicos", medicoRepository.findAll());
+        mv.addObject("agendamento", agendamento);
+
+        return mv;
+    }
+
+    @GetMapping("/agendamento")
+    public ModelAndView getAgendamento(Agendamento agendamento){
+        ModelAndView mv =  new ModelAndView("agendamento/agendamento");
+
+        mv.addObject("agendamento", agendamento);
+
+        return mv;
+    }
+
+    @PostMapping("/salvar")
+    public ModelAndView postSalvarAgendamento(@ModelAttribute Agendamento agendamento){
+        ModelAndView mv =  new ModelAndView("agendamento/lista-clinicas");
+
+        mv.addObject("agendamento", agendamento);
+
+        mv.addObject("clinicas", clinicaRepository.findAll());
+        mv.addObject("medicosList", medicoRepository.findAll());
+        return mv;
+    }
+
 
     //Método que incializa o html
     @GetMapping("/cadastro")
@@ -111,15 +145,6 @@ public class AgendamentoController {
         return mv;
     }
 
-    // @GetMapping("/agendamento-redireciona")
-    // public ModelAndView redireciona(Agendamento agendamento){
-        
-    //     if(agendamento.getTipoServico() == TipoServico.CONSULTA)
-    //         return getAutoavaliacao(agendamento);
-    //     else
-    //         return getExame(agendamento);
-    // }
-
     @GetMapping("/agendamento-exame")
     public ModelAndView getExame(Agendamento agendamento){
         ModelAndView mv = new ModelAndView("agendamento/lista-exames");
@@ -129,14 +154,6 @@ public class AgendamentoController {
         return mv;
     }
 
-    // @GetMapping("/agendamento-autoavaliacao")
-    // public ModelAndView getAutoavaliacao(Agendamento agendamento){
-    //     ModelAndView mv = new ModelAndView("agendamento/autoavaliacao");
-        
-    //     mv.addObject("sintomas", sintomaRepository.findAll());
-    //     mv.addObject("agendamento", agendamento);
-    //     return mv;
-    // }
 
     @PostMapping("/autoavaliacao")
     public ModelAndView autoavaliacao(Agendamento agendamento, Sintoma[] sintomas){

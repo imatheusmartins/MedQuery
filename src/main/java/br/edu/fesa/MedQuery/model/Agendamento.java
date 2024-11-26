@@ -2,6 +2,7 @@ package br.edu.fesa.MedQuery.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +24,10 @@ public class Agendamento  {
     private Integer id;
     private LocalDateTime dataCriacao = LocalDateTime.now();
     private LocalDateTime dataAgendada;
+    
+
+    private LocalTime hora;
+    private LocalDate data;
     private String laudo;
     private TipoServico tipoServico;
     private Status status;
@@ -127,5 +132,21 @@ public class Agendamento  {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 }

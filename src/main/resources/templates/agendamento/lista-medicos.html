@@ -57,7 +57,7 @@
                         <div class="col-md-12 grid-margin">
                             <div class="row">
                                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                                    <h3 class="font-weight-bold">Clínicas disponíveis</h3>
+                                    <h3 class="font-weight-bold">Médicos disponíveis</h3>
                                 </div>
                             </div>
                         </div>
@@ -66,21 +66,25 @@
                     <div class="row">
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card table-bg">
-                                <h4 class="mb-2">Escolha uma das clínicas abaixo</h4>
+                                <h4 class="mb-2">Escolha um dos médicos abaixo</h4>
                                 <div class="card-people mt-auto">
                                     <div class="card-container">
-                                        <div th:each="clis : ${clinicas}" class="card">
+                                        <div th:each="meds : ${medicos}" class="card">
                                             <div class="card-header">
-                                                <span th:text="${clis.nome}"></span>
+                                                <span th:text="${meds.nome}"></span>
                                             </div>
                                             <div class="card-body">
-                                                <p><strong>Rua:</strong> <span th:text="${clis.rua}"></span></p>
-                                                <p><strong>Bairro:</strong> <span th:text="${clis.bairro}"></span></p>
-                                                <p><strong>Cidade:</strong> <span th:text="${clis.cidade.cidade}"></span></p>
+                                                <p><strong>Nome:</strong> <span th:text="${meds.nome}"></span></p>
+                                                <p><strong>CRM:</strong> <span th:text="${meds.crm}"></span></p>
+                                                <p>
+                                                    <ul>
+                                                        <li th:each="especialidade : ${meds.especialidades}" th:text="${especialidade.especialidade}"></li>
+                                                    </ul>
+                                                </p>
                                                 </p>
                                             </div>
                                             <div class="card-footer justify-content-center">
-                                                <a class="btn btn-warning" th:href="@{/agendamento/lista-medico}">AGENDAR</a>
+                                                <a class="btn btn-warning" th:href="@{/agendamento/agendamento}">AGENDAR</a>
                                                     <!-- falta passar o id da clínica escolhida para a próxima página -->
                                             </div>
                                         </div>
