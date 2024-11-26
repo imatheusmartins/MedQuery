@@ -34,7 +34,7 @@ private Medico medico;
         if(userRole == UserRole.ADMIN){
             userRole = UserRole.ADMIN;
         }else{
-            userRole = UserRole.PACIENTE;
+            userRole = UserRole.MEDICO;
         }
         return AuthorityUtils.createAuthorityList(userRole.toString());
     }

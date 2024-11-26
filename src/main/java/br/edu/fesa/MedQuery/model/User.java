@@ -1,7 +1,6 @@
 package br.edu.fesa.MedQuery.model;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import br.edu.fesa.MedQuery.enums.UserRole;
 import jakarta.persistence.Basic;

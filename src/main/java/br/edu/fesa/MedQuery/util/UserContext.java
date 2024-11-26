@@ -11,6 +11,7 @@ public class UserContext {
 
     private static User currentUser;
 
+    
     public static void setCurrentUser(User user) {
         currentUser = user;
     }

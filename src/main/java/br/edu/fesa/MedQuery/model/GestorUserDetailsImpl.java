@@ -34,7 +34,7 @@ public class GestorUserDetailsImpl implements UserDetails{
         if(userRole == UserRole.ADMIN){
             userRole = UserRole.ADMIN;
         }else{
-            userRole = UserRole.PACIENTE;
+            userRole = UserRole.GESTOR;
         }
         return AuthorityUtils.createAuthorityList(userRole.toString());
     }
