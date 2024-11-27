@@ -26,9 +26,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
                                             
-        String username = authentication.getName();
-        User user = userRepository.findByNome(username);
-        UserContext.setCurrentUser(user);
+        //String username = authentication.getName();
+        //User user = userRepository.findByNome(username);
+        //UserContext.setCurrentUser(user);
         // response.sendRedirect("/home");
     }
 }

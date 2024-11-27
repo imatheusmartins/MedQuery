@@ -53,6 +53,10 @@ public class UserController {
         String hashSenha = PasswordUtil.encoder(paciente.getSenha());
         paciente.setSenha(hashSenha);
 
+        //UserRole userRolePaciente = UserRole.PACIENTE;
+
+//paciente.setUserRole(userRolePaciente);
+
         mv.addObject("paciente", paciente); //usuario é o objeto enviado pelo html.
 
         try {
