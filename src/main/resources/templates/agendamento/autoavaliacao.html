@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: headImports}"></head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav th:replace="~{fragments/navbar :: navbarImports}"></nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav th:replace="~{fragments/sidebar :: sidebarImports}"></nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+                    <div class="col-12 grid-margin ">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="row justify-content-center">Preencha sua autoavaliação</h3>
+                                <form class="form-sample" th:action="@{/agendamento/lista-clinicas}" method="post" th:object="${agendamento}" enctype="multipart/form-data">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-4">
+                                            <label class="ml-1 form-group row mb-1 justify-content-sm-center">Sintomas</label>
+                                            <label class="ml-1 form-group row text-muted small mb-1 mt-1 justify-content-center">Segure o botão Ctrl e clique nos sintomas que está sentindo</label>
+                                            <div class="form-group row justify-content-center">
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" th:field="*{sintomas}" multiple>
+                                                        <option th:each="sintoma : ${sintomasEnum}" th:value="${sintoma}" th:text="${sintoma.sintoma}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium">Enviar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024 -
+                            MEDQUERY </span>
+                    </div>
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a
+                                href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from
+                            BootstrapDash. All rights reserved. <a href="https://www.themewagon.com/"
+                                target="_blank">Distributed by Themewagon</a></span>
+                    </div>
+                </footer>
+            </div>
+            <!-- end main panel-->
+            <!-- partial:partials/_footer.html -->
+            <!-- partial -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller ends-->
+
+    <!-- plugins:js -->
+    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="js/off-canvas.js"></script>
+    <script src="js/template.js"></script>
+    <script src="js/hoverable-collapse.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="js/dashboard.js"></script>
+    <!-- End custom js for this page-->
+</body>
+
+</html>

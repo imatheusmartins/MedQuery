@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: headImports}"></head>
+<style>
+    .lblMedico {
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav th:replace="~{fragments/navbar :: navbarImports}"></nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav th:replace="~{fragments/sidebar :: sidebarImports}"></nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+                    <!-- cabeçalho boas vindas -->
+                    <div class="row">
+                        <div class="col-md-12 grid-margin">
+                            <div class="row">
+                                <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                                    <h3 class="font-weight-bold">Editar Cliente</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- conteúdo principal -->
+                    <form class="form-sample" th:action="@{/medico/editar-medico}" method="post" th:object="${medico}">
+                        <input type="hidden" th:field="*{id}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Nome</label>
+                                    <div class="col-sm-9">
+                                        <input th:field="*{nome}" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Email</label>
+                                    <div class="col-sm-9">
+                                        <input th:field="*{email}" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">CRM</label>
+                                    <div class="col-sm-9">
+                                        <input th:field="*{crm}" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Papel</label>
+                                    <div class="col-sm-9">
+                                        <select id="" class="form-control" th:field="*{userRole}">
+                                            <option value="" disabled selected>Selecione seu papel</option>
+                                            <option th:each="userRole : ${userRoles}" th:text="${userRole}"  th:value="${userRole}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label"></label>
+                                    <div class="col-sm-9">
+                                        <div class="form-check">
+                                            <!-- Usando th:checked para verificar o estado e th:disabled para desabilitar -->
+                                            <input th:field="*{ativo}" type="checkbox" class="form-check-input" id="ativoCheckbox" checked >
+                                            <label class="form-check-label" for="ativoCheckbox">Ativo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Especialidades</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" th:field="*{especialidades}" multiple>
+                                            <option th:each="especialidade : ${especialidadesOption}" th:value="${especialidade}" th:text="${especialidade.especialidade}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                                   
+                        </div>
+                        <div class="row">
+                            
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit"
+                                class="btn btn-block btn-primary btn-lg font-weight-medium">SALVAR ALTERAÇÕES</button>
+                        </div>                    
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="../../vendors/js/vendor.bundle.base.js"></script>
+        <!-- End plugin js for this page -->
+        <!-- inject:js -->
+        <script src="../../js/off-canvas.js"></script>
+        <script src="../../js/template.js"></script>
+        <script src="../../js/hoverable-collapse.js"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page-->
+        <script src="../../js/dashboard.js"></script>
+        <!-- End custom js for this page-->
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: headImports}"></head>
+<style>
+    .lblClinica {
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav th:replace="~{fragments/navbar :: navbarImports}"></nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav th:replace="~{fragments/sidebar :: sidebarImports}"></nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+                    <!-- cabeçalho boas vindas -->
+                    <div class="row">
+                        <div class="col-md-12 grid-margin">
+                            <div class="row">
+                                <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                                    <h3 class="font-weight-bold">Editar Clínica</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- conteúdo principal -->
+                    <form class="form-sample" th:action="@{/clinica/editar-clinica}" method="post" th:object="${clinica}">
+                        <input type="hidden" th:field="*{id}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Nome</label>
+                                    <div class="col-sm-9">
+                                        <input th:field="*{nome}" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Rua</label>
+                                    <div class="col-sm-9">
+                                        <input th:field="*{rua}" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Número</label>
+                                    <div class="col-sm-9">
+                                        <input th:field="*{numero}" type="number" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Bairro</label>
+                                    <div class="col-sm-9">
+                                        <input th:field="*{bairro}" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Cidade</label>
+                                    <div class="col-sm-9">
+                                        <select id="" class="form-control" th:field="*{cidade}">
+                                            <option value="" disabled selected>Selecione a cidade</option>
+                                            <option th:each="cidade : ${cidades}" th:text="${cidade.cidade}"  th:value="${cidade}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                                   
+                        </div>
+                        <div class="row">
+                            
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit"
+                                class="btn btn-block btn-primary btn-lg font-weight-medium">SALVAR ALTERAÇÕES</button>
+                        </div>                    
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="../../vendors/js/vendor.bundle.base.js"></script>
+        <!-- End plugin js for this page -->
+        <!-- inject:js -->
+        <script src="../../js/off-canvas.js"></script>
+        <script src="../../js/template.js"></script>
+        <script src="../../js/hoverable-collapse.js"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page-->
+        <script src="../../js/dashboard.js"></script>
+        <!-- End custom js for this page-->
+</body>
+
+</html>

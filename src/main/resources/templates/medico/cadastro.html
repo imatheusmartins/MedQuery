@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: headImports}"></head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav th:replace="~{fragments/navbar :: navbarImports}"></nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav th:replace="~{fragments/sidebar :: sidebarImports}"></nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+                    <div class="col-12 grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 >Preencha os dados do médico</h3>
+                                <form class="form-sample" th:action="@{/medico/cadastro-medico}" method="post" th:object="${medico}" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <input th:field="*{nome}" type="text" class="form-control" placeholder="Nome Completo" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <input th:field="*{email}" type="text" class="form-control" placeholder="E-mail" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <input th:field="*{senha}" type="text" class="form-control" placeholder="Senha"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <select id="" class="form-control" th:field="*{userRole}">
+                                                        <option value="" disabled selected>Selecione seu papel</option>
+                                                        <option th:each="userRole : ${userRoles}" th:text="${userRole.userRole}"  th:value="${userRole}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <input th:field="*{crm}" type="text" class="form-control" placeholder="CRM" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row align-items-center">
+                                                <label for="ativoCheckbox" class="col-sm-2 col-form-label">Ativo?</label>
+                                                <div class="col-sm-1 ">
+                                                    <!-- Ajustando o layout com form-check -->
+                                                    <div class="form-check">
+                                                        <input th:field="*{ativo}" type="checkbox" class="form-check-input" id="ativoCheckbox">
+                                                        <label class="form-check-label" for="ativoCheckbox"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="ml-1 form-group row mb-1">Especialidades</label>
+                                            <label class="ml-1 form-group row text-muted small mb-1 mt-1">Segure o botão Ctrl e clique nas especialidades desejadas</label>
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" th:field="*{especialidades}" multiple>
+                                                        <option th:each="especialidade : ${especialidadesOption}" th:value="${especialidade}" th:text="${especialidade.especialidade}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        
+                                    </div>
+                                    <div class="mt-3">
+                                        <button type="submit"
+                                            class="btn btn-block btn-primary btn-lg font-weight-medium">CADASTRAR MÉDICO</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024 -
+                            MEDQUERY </span>
+                    </div>
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a
+                                href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from
+                            BootstrapDash. All rights reserved. <a href="https://www.themewagon.com/"
+                                target="_blank">Distributed by Themewagon</a></span>
+                    </div>
+                </footer>
+            </div>
+            <!-- end main panel-->
+            <!-- partial:partials/_footer.html -->
+            <!-- partial -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller ends-->
+
+    <!-- plugins:js -->
+    <script src="../vendors/js/vendor.bundle.base.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../js/off-canvas.js"></script>
+    <script src="../js/template.js"></script>
+    <script src="../js/hoverable-collapse.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="../js/dashboard.js"></script>
+    <!-- End custom js for this page-->
+</body>
+
+</html>
