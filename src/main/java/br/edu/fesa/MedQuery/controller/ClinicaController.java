@@ -51,7 +51,7 @@ public class ClinicaController {
         try {
             clinicaRepository.save(clinica);
             System.out.println("Salvo com sucesso: " + clinica.getNome());
-            return "redirect:/home";
+            return "redirect:/clinica/list-clinica";
         } catch (Exception e) {
             mv.addObject("msgErro", e.getMessage());
             System.out.println("Erro ao salvar " + e.getMessage());
