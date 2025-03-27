@@ -10,8 +10,6 @@ import br.edu.fesa.MedQuery.model.Agendamento;
 
 public class AgendamentoSpecification {
 
-    
-
     public static Specification<Agendamento> porClinica(Integer clinicaId) {
         return (root, query, builder) -> clinicaId == null ? null :
                 builder.equal(root.get("clinica").get("id"), clinicaId);

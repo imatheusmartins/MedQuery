@@ -52,6 +52,7 @@ public class GestorController {
     }
 
     //Método que recebe o dado enviado no form do html 
+    @SuppressWarnings("finally")
     @PostMapping("/cadastro-gestor")
     public String postCadastroGestor(@ModelAttribute Gestor gestor){
         ModelAndView mv =  new ModelAndView("gestor/cadastro");
@@ -64,11 +65,12 @@ public class GestorController {
         try {
             gestorRepository.save(gestor);
             System.out.println("Salvo com sucesso: " + gestor.getEmail());
-            return "redirect:/home";
         } catch (Exception e) {
             mv.addObject("msgErro", e.getMessage());
             System.out.println("Erro ao salvar " + e.getMessage());
-            return "redirect:/home";
+        }
+        finally{
+            return "redirect:/gestor/list-gestores";
         }
     }
 
